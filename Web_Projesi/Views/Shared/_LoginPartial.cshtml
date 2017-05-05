@@ -1,0 +1,15 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    using (Html.BeginForm("SignOut", "Login", FormMethod.Post, new { @class = "form-horizantal", role = "form" }))
+    {
+        <h6>Welcome user @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")</h6>
+        <input class="btn btn-primary" type="submit" value="Log Out" />
+    }
+}
+else
+{
+    using (Html.BeginForm("Login", "Login", FormMethod.Get, new { @class = "form-horizantal", role = "form" }))
+    {
+        <input class="btn btn-primary" type="submit" value="Log In" />
+    }
+}

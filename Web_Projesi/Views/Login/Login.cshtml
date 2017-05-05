@@ -1,0 +1,75 @@
+﻿@model Web_Projesi.Models.tblLogin
+@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Transparent Login Form Responsive Widget Template | Home :: w3layouts</title>
+    <link href="~/Content/Login_Page/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Transparent Login Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+    <!--web-fonts-->
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css' />
+    <!--web-fonts-->
+    <link rel="Shortcut Icon" href="~/Content/Images/icon.ico" type="image/x-icon" />
+</head>
+
+<body>
+    <!--header-->
+    <div class="header-w3l">
+        <h1> Tez Sistemi</h1>
+    </div>
+    <!--//header-->
+    <!--main-->
+    <div class="main-content-agile">
+        <div class="sub-main-w3">
+
+            @using (Html.BeginForm("Login", "Login", new { returnUrl = Request.QueryString["ReturnUrl"] }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary(true, "", new { @style = "color:#ffffff" })
+                <div class="container-fluid">
+                    <div class="row" style="text-align:center">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="user">
+                                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { placeholder = "UserName", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="pass">
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { type = "password", placeholder = "Password", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="">
+
+                @*<div>
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>*@
+
+            }
+
+        </div>
+
+
+
+    </div>
+    <!--//main-->
+    <!--footer-->
+    <div class="footer">
+        <p>Project</p>
+    </div>
+    <!--//footer-->
+
+</body>
+</html>

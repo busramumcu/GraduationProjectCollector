@@ -5,7 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="00941f19cc124649a61f8d30a2e06803" Name="Diagram1">
-        <EntityTypeShape EntityType="TezProjectModel.tblLogin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TezProjectModel.Bekleyen_Kullanici" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TezProjectModel.Gorev" Width="1.5" PointX="3" PointY="9" />
+        <EntityTypeShape EntityType="TezProjectModel.Koordinator" Width="1.5" PointX="3" PointY="3.75" />
+        <EntityTypeShape EntityType="TezProjectModel.Kullanici" Width="1.5" PointX="0.75" PointY="3.125" />
+        <EntityTypeShape EntityType="TezProjectModel.Ogrenci" Width="1.5" PointX="3" PointY="6" />
+        <EntityTypeShape EntityType="TezProjectModel.Ogretim_Uyesi" Width="1.5" PointX="3" PointY="1.375" />
+        <EntityTypeShape EntityType="TezProjectModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TezProjectModel.Tez" Width="1.5" PointX="5.25" PointY="5.875" />
+        <AssociationConnector Association="TezProjectModel.FK_Koordinator_Kullanici" />
+        <AssociationConnector Association="TezProjectModel.FK_Ogrenci_Kullanici" />
+        <AssociationConnector Association="TezProjectModel.FK_Ogretim_Uyesi_Kullanici" />
+        <AssociationConnector Association="TezProjectModel.Tez_Gorev" />
+        <AssociationConnector Association="TezProjectModel.Tez_Ogrenci" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

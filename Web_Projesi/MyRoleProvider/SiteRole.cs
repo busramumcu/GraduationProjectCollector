@@ -48,11 +48,11 @@ namespace Project.MyRoleProvider
             throw new NotImplementedException();
         }
 
-        public override string[] GetRolesForUser(string username)
+        public override string[] GetRolesForUser(string kullanici_adi)
         {
             TezProjectEntities db = new TezProjectEntities();
-            string data = db.tblLogins.Where(x => x.Username == username).FirstOrDefault().Role;
-            string[] result = { data };
+            string data = db.Kullanicis.Where(x => x.Kullanici_Adi == kullanici_adi).FirstOrDefault().user_type;
+            string[] result = { data.Trim() };
             return result;
         }
 

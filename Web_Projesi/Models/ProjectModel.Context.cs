@@ -25,6 +25,13 @@ namespace Web_Projesi.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tblLogin> tblLogins { get; set; }
+        public virtual DbSet<Bekleyen_Kullanici> Bekleyen_Kullanici { get; set; }
+        public virtual DbSet<Gorev> Gorevs { get; set; }
+        public virtual DbSet<Koordinator> Koordinators { get; set; }
+        public virtual DbSet<Kullanici> Kullanicis { get; set; }
+        public virtual DbSet<Ogrenci> Ogrencis { get; set; }
+        public virtual DbSet<Ogretim_Uyesi> Ogretim_Uyesi { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Tez> Tezs { get; set; }
     }
 }

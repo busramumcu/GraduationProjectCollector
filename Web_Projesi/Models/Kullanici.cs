@@ -12,10 +12,18 @@ namespace Web_Projesi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblLogin
+    public partial class Kullanici
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
+        public int Kullanici_Id { get; set; }
+        public string Kullanici_Adi { get; set; }
+        public string Ad { get; set; }
+        public string Soyad { get; set; }
+        public string Sifre { get; set; }
+        public string Email { get; set; }
+        public string user_type { get; set; }
+    
+        public virtual Koordinator Koordinator { get; set; }
+        public virtual Ogrenci Ogrenci { get; set; }
+        public virtual Ogretim_Uyesi Ogretim_Uyesi { get; set; }
     }
 }

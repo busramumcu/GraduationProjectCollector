@@ -18,7 +18,7 @@
     <link href="~/Content/Base_Page/assets/css/style.css" rel="stylesheet" />
     <!-- GOOGLE FONT -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-    
+
     <link rel="Shortcut Icon" href="~/Content/Images/icon.ico" type="image/x-icon" />
 
 </head>
@@ -26,20 +26,23 @@
     <div class="navbar navbar-inverse set-radius-zero">
         <div class="mycontainer">
             <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
 
-                        <img src="~/Content/Images/logo.png" height="60" />
-                    </a>
-                </div>
-
-                <div class="right-div">
-                    @Html.Partial("_LoginPartial")
+                                <img src="~/Content/Images/logo.png" height="60" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="margin-top:15px">                    
+                            @Html.Partial("_LoginPartial")                                                 
+                    </div>
                 </div>
             </div>
         </div>

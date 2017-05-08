@@ -34,7 +34,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                            <a class="navbar-brand" href="@Url.Action("Index", "LoggedKoordinator")">
 
                                 <img src="~/Content/Images/logo.png" height="60" />
                             </a>
@@ -54,32 +54,7 @@
                 <div class="col-md-12">
                     <div class="navbar-collapse collapse ">
                         <ul id="menu-top" class="nav navbar-nav navbar-right">
-                            <li><a href="@Url.Action("Index", "Home")">ANASAYFA</a></li>
-                            <li>
-                                <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown">ÖĞRETMENLER<i class="fa fa-angle-down"></i></a>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="@Url.Action("TezKoordinatoru", "Home")">TEZ KOORDİNATÖRÜ</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="@Url.Action("Danismanlar", "Home")">DANIŞMANLAR</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown">LİNKLER<i class="fa fa-angle-down"></i></a>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" target="_blank" href="http://sorubank.ege.edu.tr/~moodle/mod/forum/view.php?id=735">Bölüm Forumu</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" target="_blank" href="http://bilmuh.ege.edu.tr/microsoft_imagine">Microsoft Imagine Üyelikleri</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" target="_blank" href="http://ebys.ege.edu.tr/ogrenci/ebp/tr/index.html">Bologna</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" target="_blank" href="http://www.bmo.org.tr/">TMMOB Bilgisayar Mühendisleri Odası</a></li>
-                                </ul>
-                            </li>
-                            <li> <a href="@Url.Action("Iletisim", "Home")" class="elements">İLETİŞİM </a></li>
-                            @*@if (User.Identity.IsAuthenticated)
-                            {                               
-                                if (string.Compare(UserManager.FindByName(User.Identity.Name).Roles, "Ogrenci") == 0)
-                                {
-                                    <li> <a href="@Url.Action("Index", "LoggedOgrenci")" class="elements">ÖGRENCİ SAYFASI </a></li>
-
-                                }
-                            }*@
+                            <li><a href="@Url.Action("Onaylama", "LoggedKoordinator")">KULLANICI ONAYLAMA</a></li>
                         </ul>
                     </div>
                 </div>

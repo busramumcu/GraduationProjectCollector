@@ -12,16 +12,7 @@ namespace Web_Projesi.Controllers
     {// GET: Home
        
       //  TODO: Ayrı Controller'lara taşınacak. _Layout düzenlenecek menu eklenecek
-        [Authorize(Roles = "Ogrenci")]
-        public ActionResult IndexOgrenci()
-        {
-            return View();
-        }
-        [Authorize(Roles = "Ogretim Uyesi")]
-        public ActionResult IndexDanisman()
-        {
-            return View();
-        }
+        
 
         public ActionResult Login()
         {
@@ -48,10 +39,10 @@ namespace Web_Projesi.Controllers
                 }
                 else if (dataItem.user_type.Trim() == "Danisman")
                 {
-                    return RedirectToAction("IndexDanisman");
+                    return RedirectToAction("Index", "LoggedDanisman");
                 }
                 else if (dataItem.user_type.Trim() == "Ogrenci")
-                    return RedirectToAction("IndexOgrenci");
+                    return RedirectToAction("Index", "LoggedOgrenci");
                 else
                     return Redirect(returnUrl);
             }

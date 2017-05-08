@@ -1,0 +1,51 @@
+﻿@using Web_Projesi.Models
+@model KullaniciOnayModel
+
+
+@{
+    ViewBag.Title = "Onaylama";
+    Layout = "~/Views/Shared/_LoggedKoordinatorLayout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>HaberDetay</title>
+</head>
+<body>
+    
+        <div class="jumbotron">
+            <h1>Onay Bekleyen Kullanıcılar</h1>
+            <p>Onay vermek için kullanıcıları seçip tamamla tuşuna basınız</p>
+        </div>
+
+        <h3> Kullanıcılar </h3>
+        @using (Html.BeginForm("Onaylama", "LoggedKoordinator", null, FormMethod.Post))
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Ad</th>
+                        <th>Soyad</th>
+                        <th>Email</th>
+                        <th>Kullanici Tipi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i=0; i< Model.TumKullanicilar.Count; i++)
+                    {
+                        <tr>
+                            <td>@Model.TumKullanicilar[i].Ad</td>
+                            <td>@Model.TumKullanicilar[i].Soyad</td>
+                            <td>@Model.TumKullanicilar[i].Email</td>
+                            <td>@Model.TumKullanicilar[i].Kullanici_Tipi</td>
+                            <td><input type="checkbox" value="@Model.TumKullanicilar[i].B_Id" name="SecilmisKullanicilar" /></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <input class="btn btn-primary" style="margin-left:10px" type="submit" value="Tamamla" />
+        }
+    
+</body>
+</html>

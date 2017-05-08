@@ -10,19 +10,15 @@ namespace Web_Projesi.Controllers
 {
     public class LoginController : Controller
     {// GET: Home
-        [Authorize(Roles = "Koordinator")]
-        public ActionResult IndexAdmin()
-        {
-            return View();
-        }
-        //TODO: Ayrı Controller'lara taşınacak. _Layout düzenlenecek menu eklenecek
+       
+      //  TODO: Ayrı Controller'lara taşınacak. _Layout düzenlenecek menu eklenecek
         [Authorize(Roles = "Ogrenci")]
         public ActionResult IndexOgrenci()
         {
             return View();
         }
         [Authorize(Roles = "Ogretim Uyesi")]
-        public ActionResult IndexOgretmen()
+        public ActionResult IndexDanisman()
         {
             return View();
         }
@@ -47,12 +43,12 @@ namespace Web_Projesi.Controllers
                     return Redirect(returnUrl);
                 }
                 else if (dataItem.user_type.Trim() == "Koordinator")
-                {
-                    return RedirectToAction("IndexAdmin");
+                {               
+                      return RedirectToAction("Index", "LoggedKoordinator");
                 }
-                else if (dataItem.user_type.Trim() == "Ogretim Uyesi")
+                else if (dataItem.user_type.Trim() == "Danisman")
                 {
-                    return RedirectToAction("IndexOgretmen");
+                    return RedirectToAction("IndexDanisman");
                 }
                 else if (dataItem.user_type.Trim() == "Ogrenci")
                     return RedirectToAction("IndexOgrenci");
@@ -66,7 +62,8 @@ namespace Web_Projesi.Controllers
             }
         }
         public ActionResult Register()
-        {          
+        {
+            ViewBag.Message = null;
             return View();
         }
 
@@ -77,13 +74,23 @@ namespace Web_Projesi.Controllers
             {
                 using (TezProjectEntities db = new TezProjectEntities())
                 {
-                    db.Bekleyen_Kullanici.Add(model);
-                    db.SaveChanges();
-                    ViewBag.Message = "Kayıt onaya gönderildi";
+                    var gelenBekleyen = db.Bekleyen_Kullanici.Where(x => x.Kullanici_Adi == model.Kullanici_Adi).FirstOrDefault();
+                    var gelenKullanici = db.Kullanicis.Where(x => x.Kullanici_Adi == model.Kullanici_Adi).FirstOrDefault();
+                    if (gelenBekleyen == null && gelenKullanici == null)
+                    {
+                        db.Bekleyen_Kullanici.Add(model);
+                        db.SaveChanges();
+                        ViewBag.Message = "Kayıt onaya gonderildi";                     
+                    }
+                    else {
+                        ViewBag.Message = "Bu kullanici adina sahip bir kullanici var. Lutfen Kullanici Adinizi Degistiriniz.";
+                    }
+                    
                 }
 
             }
-           
+
+            //return RedirectToAction("Index","Home"); ;
             return View();
         }
 

@@ -176,13 +176,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Iletisim.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Login\IndexAdmin.cshtml" />
     <Content Include="Views\Login\IndexOgrenci.cshtml" />
-    <Content Include="Views\Login\IndexOgretmen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ArrayList.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoggedKoordinatorController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -199,6 +199,7 @@
     <Compile Include="Models\Kullanici.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\KullaniciOnayModel.cs" />
     <Compile Include="Models\Ogrenci.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -238,6 +239,11 @@
     <Content Include="Views\Home\TezKoordinatoru.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
+    <Content Include="Views\Shared\_LoggedKoordinatorLayout.cshtml" />
+    <Content Include="Views\LoggedKoordinator\Index.cshtml" />
+    <Content Include="Views\LoggedKoordinator\Onaylama.cshtml" />
+    <Content Include="Views\LoggedKoordinator\Success.cshtml" />
+    <Content Include="Views\LoggedKoordinator\Fail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

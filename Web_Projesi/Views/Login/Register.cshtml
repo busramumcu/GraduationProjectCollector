@@ -15,7 +15,8 @@
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css' />
     <!--web-fonts-->
     <link rel="Shortcut Icon" href="~/Content/Images/icon.ico" type="image/x-icon" />
-
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
 </head>
 
 <body>
@@ -31,10 +32,13 @@
             {
                 <script>
                 $(document).ready(function(){
-                alert('@ViewBag.Message');});
-
+                        alert('@ViewBag.Message');
+                    });
                 </script>
-
+                if (string.Compare(ViewBag.Message, "Kayıt onaya gonderildi") == 0)
+                {
+                    @Html.ActionLink("ANASAYFAYA DÖNMEK İÇİN TIKLAYINIZ.","Index", "Home")
+                }
             }
             @using (Html.BeginForm("Register", "Login", null, FormMethod.Post))
             {
@@ -45,11 +49,11 @@
                     <div class="row" style="text-align:center">
                         <div class="col-md-12">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.Kullanici_Adi, new { htmlAttributes = new { @class = "form-control", @placeholder = "Kullanıcı Adı", required = "required" } })                         
-                                @Html.ValidationMessageFor(model => model.Kullanici_Adi, "", new { @class = "text-danger",@style= "color:red; display: block; " })
+                                @Html.EditorFor(model => model.Kullanici_Adi, new { htmlAttributes = new { @class = "form-control", @placeholder = "Kullanıcı Adı", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Kullanici_Adi, "", new { @class = "text-danger", @style = "color:red; display: block; " })
                             </div>
                             <div class="form-group">
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", required = "required"} })
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", required = "required" } })
                                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @style = "color:red; display: block; " })
                             </div>
                             <div class="form-group">
@@ -66,6 +70,26 @@
                                 @Html.EditorFor(model => model.Soyad, new { htmlAttributes = new { @class = "form-control", @placeholder = "Soyad", required = "required" } })
                                 @Html.ValidationMessageFor(model => model.Soyad, "", new { @class = "text-danger", @style = "color:red; display: block; " })
                             </div>
+                            @*<br />
+                                <div class="form-group" style="color:#808080; font-style:normal; font-weight:bold">
+                                    <form class="row">
+                                            <input type="radio" class="form-control" name="KullaniciTipi" value="Ogrenci" checked> Ogrenci
+                                            <input type="radio" class="form-control" name="KullaniciTipi" value="Danisman"> Danisman
+                                            <input type="radio" class="form-control" name="KullaniciTipi" value="Koordinator"> Koordinator
+                                    </form>
+                                    @Html.ValidationMessageFor(model => model.Kullanici_Tipi, "", new { @class = "text-danger", @style = "color:red; display: block; " })
+                                </div>*@
+                            <div class="form-group" style="color:#808080; font-style:normal; font-weight:bold">
+
+                                @Html.RadioButtonFor(model => model.Kullanici_Tipi, "Ogrenci", new { @checked = true, htmlAttributes = new { @class = "form-control" } })
+                                <label> Ogrenci</label>
+                                @Html.RadioButtonFor(model => model.Kullanici_Tipi, "Danışman", new { htmlAttributes = new { @class = "form-control" } })
+                                <label> Danışman </label>
+                                @Html.RadioButtonFor(model => model.Kullanici_Tipi, "Koordinatör", new { htmlAttributes = new { @class = "form-control" } })
+                                <label> Koordinatör </label>
+                                @Html.ValidationMessageFor(model => model.Kullanici_Tipi, "", new { @class = "text-danger", @style = "color:red; display: block; " })
+                            </div>
+
                         </div>
                     </div>
                 </div>

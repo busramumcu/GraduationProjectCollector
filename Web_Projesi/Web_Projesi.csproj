@@ -177,11 +177,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Iletisim.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Login\IndexOgrenci.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ArrayList.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoggedDanismanController.cs" />
     <Compile Include="Controllers\LoggedKoordinatorController.cs" />

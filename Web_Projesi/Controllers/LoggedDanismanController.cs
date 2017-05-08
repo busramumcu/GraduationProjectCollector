@@ -8,7 +8,7 @@ namespace Web_Projesi.Controllers
 {
     public class LoggedDanismanController : Controller
     {
-        [Authorize(Roles = "Ogretim Uyesi")]
+        [Authorize(Roles = "Danisman")]
         // GET: LoggedDanisman
         public ActionResult Index()
         {

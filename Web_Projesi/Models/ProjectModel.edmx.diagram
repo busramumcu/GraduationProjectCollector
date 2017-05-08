@@ -18,6 +18,7 @@
         <AssociationConnector Association="TezProjectModel.FK_Ogretim_Uyesi_Kullanici" ManuallyRouted="false" />
         <AssociationConnector Association="TezProjectModel.FK_Tez_Ogrenci" ManuallyRouted="false" />
         <AssociationConnector Association="TezProjectModel.FK_Tez_Ogretim_Uyesi" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TezProjectModel.Duyuru" Width="1.5" PointX="5.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

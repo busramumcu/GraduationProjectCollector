@@ -13,9 +13,10 @@ namespace Web_Projesi.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+
     public partial class Bekleyen_Kullanici
     {
-        public int B_Id { get; set; }
+        public int B_Id { get; set; }    
         [StringLength(50, ErrorMessage = "Kullanici Adý 50 karakterden uzun olamaz")]
         public string Kullanici_Adi { get; set; }
 

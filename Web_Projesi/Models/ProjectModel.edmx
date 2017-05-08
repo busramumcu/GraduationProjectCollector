@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TezProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TezProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bekleyen_Kullanici">
           <Key>
             <PropertyRef Name="B_Id" />
@@ -17,6 +17,14 @@
           <Property Name="Soyad" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Kullanici_Tipi" Type="nvarchar" MaxLength="50" />
           <Property Name="Onay" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Duyuru">
+          <Key>
+            <PropertyRef Name="Duyuru_Id" />
+          </Key>
+          <Property Name="Duyuru_Id" Type="int" Nullable="false" />
+          <Property Name="Duyuru_Basligi" Type="nvarchar" MaxLength="200" />
+          <Property Name="Duyuru_Icerigi" Type="nvarchar" MaxLength="2000" />
         </EntityType>
         <EntityType Name="Gorev">
           <Key>
@@ -148,6 +156,7 @@
         </Association>
         <EntityContainer Name="TezProjectModelStoreContainer">
           <EntitySet Name="Bekleyen_Kullanici" EntityType="Self.Bekleyen_Kullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Duyuru" EntityType="Self.Duyuru" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gorev" EntityType="Self.Gorev" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Koordinator" EntityType="Self.Koordinator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kullanici" EntityType="Self.Kullanici" Schema="dbo" store:Type="Tables" />
@@ -176,8 +185,7 @@
             <End Role="Tez" EntitySet="Tez" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TezProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -361,7 +369,16 @@
             <End Role="Ogretim_Uyesi" EntitySet="Ogretim_Uyesi" />
             <End Role="Tez" EntitySet="Tezs" />
           </AssociationSet>
+          <EntitySet Name="Duyurus" EntityType="TezProjectModel.Duyuru" />
         </EntityContainer>
+        <EntityType Name="Duyuru">
+          <Key>
+            <PropertyRef Name="Duyuru_Id" />
+          </Key>
+          <Property Name="Duyuru_Id" Type="Int32" Nullable="false" />
+          <Property Name="Duyuru_Basligi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Duyuru_Icerigi" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -447,6 +464,15 @@
                 <ScalarProperty Name="Danisman_Id" ColumnName="Danisman_Id" />
                 <ScalarProperty Name="Abstract" ColumnName="Abstract" />
                 <ScalarProperty Name="Donem" ColumnName="Donem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Duyurus">
+            <EntityTypeMapping TypeName="TezProjectModel.Duyuru">
+              <MappingFragment StoreEntitySet="Duyuru">
+                <ScalarProperty Name="Duyuru_Icerigi" ColumnName="Duyuru_Icerigi" />
+                <ScalarProperty Name="Duyuru_Basligi" ColumnName="Duyuru_Basligi" />
+                <ScalarProperty Name="Duyuru_Id" ColumnName="Duyuru_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

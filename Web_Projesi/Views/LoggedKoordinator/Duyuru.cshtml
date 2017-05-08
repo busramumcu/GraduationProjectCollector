@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Duyuru";
+    Layout = "~/Views/Shared/_LoggedKoordinatorLayout.cshtml";
+}
+<h2>Contact List</h2>
+<a href="#">Add New Contact</a>
+
+<div id="update_panel">
+
+</div>
+
+
+<style>
+    /*This is optional, I have added this for make looks good*/
+    html, body, footer, #body {
+        background-color: #fff;
+    }
+
+    .ui-widget-header {
+        border: none !important;
+        background: none !important;
+        color: #222222;
+        font-weight: bold;
+    }
+
+    .ui-state-default, .ui-state-hover {
+        border: none !important;
+        background: none !important;
+    }
+
+    .ui-dialog {
+        box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    }
+
+    h2 {
+        margin-top: 0px;
+        font-size: 30px;
+    }
+
+    .success {
+        color: green;
+    }
+
+    .failed {
+        color: red;
+    }
+</style>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        //Populate Contact
+        LoadDuyurus();
+
+    });
+
+
+    function LoadDuyurus() {
+        $('#update_panel').html('Loading Data...');
+
+        $.ajax({
+            url: '/LoggedKoordinator/GetDuyurus',
+            type: 'GET',
+            dataType: 'json',
+            success: function (d) {
+                if (d.length > 0) {
+                    var $data = $('<table></table>').addClass('table table-responsive table-striped');
+                    var header = "<thead><tr><th>Duyuru Id</th><th>Duyuru Başlığı</th><th>Duyuru Açıklama</th><th></th></tr></thead>";
+                    $data.append(header);
+
+                    $.each(d, function (i, row) {
+                        var $row = $('<tr/>');
+                        $row.append($('<td/>').html(row.Duyuru_Id));
+                        $row.append($('<td/>').html(row.Duyuru_Basligi));
+                        $row.append($('<td/>').html(row.Duyuru_Icerigi));
+                        $row.append($('<td/>').html("<a href='/LoggedKoordinator/Save/" + row.Duyuru_Id + "' class='popup'>Düzenle</a>&nbsp;|&nbsp;<a href='/LoggedKoordinator/Delete/" + row.Duyuru_Id + "' class='popup'>Sil</a>"));
+                        $data.append($row);
+                    });
+
+                    $('#update_panel').html($data);
+                }
+                else {
+                    var $noData = $('<div/>').html('No Data Found!');
+                    $('#update_panel').html($noData);
+                }
+            },
+            error: function () {
+                alert('Error! Please try again.');
+            }
+        });
+
+    }
+</script>
+
+

@@ -204,7 +204,6 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\CrudGorev.js" />
     <EntityDeploy Include="Models\ProjectModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ProjectModel.Designer.cs</LastGenOutput>
@@ -234,6 +233,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Bekleyen_Kullanici.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Duyuru.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Gorev.cs">
@@ -293,8 +295,8 @@
     <Content Include="Views\Shared\_LoggedOgrenciLayout.cshtml" />
     <Content Include="Views\LoggedOgrenci\Index.cshtml" />
     <Content Include="Views\LoggedDanisman\Index.cshtml" />
-    <Content Include="Views\LoggedDanisman\Gorev.cshtml" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
+    <Content Include="Views\LoggedKoordinator\Duyuru.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

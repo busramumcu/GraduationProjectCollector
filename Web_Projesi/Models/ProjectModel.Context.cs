@@ -33,5 +33,6 @@ namespace Web_Projesi.Models
         public virtual DbSet<Ogretim_Uyesi> Ogretim_Uyesi { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tez> Tezs { get; set; }
+        public virtual DbSet<Duyuru> Duyurus { get; set; }
     }
 }

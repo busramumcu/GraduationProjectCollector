@@ -66,10 +66,26 @@ namespace Web_Projesi.Controllers
             }
         }
         public ActionResult Register()
-        {
+        {          
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Register(Bekleyen_Kullanici model)
+        {
+            if (ModelState.IsValid)
+            {
+                using (TezProjectEntities db = new TezProjectEntities())
+                {
+                    db.Bekleyen_Kullanici.Add(model);
+                    db.SaveChanges();
+                    ViewBag.Message = "Kayıt onaya gönderildi";
+                }
+
+            }
+           
+            return View();
+        }
 
         [Authorize]
         public ActionResult SignOut()

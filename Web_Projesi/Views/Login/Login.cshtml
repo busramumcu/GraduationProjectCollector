@@ -6,7 +6,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Transparent Login Form Responsive Widget Template | Home :: w3layouts</title>
+    <title>Transparent Login Form Responsive Widget Template</title>
     <link href="~/Content/Login_Page/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -37,14 +37,14 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="user">
-                                    @Html.EditorFor(model => model.Kullanici_Adi, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.Kullanici_Adi, new { htmlAttributes = new { @class = "form-control", @placeholder = "Kullanici Adi", required = "required" } })
                                     @Html.ValidationMessageFor(model => model.Kullanici_Adi, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="pass">
-                                    @Html.EditorFor(model => model.Sifre, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.Sifre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Şifre", required = "required" } })
                                     @Html.ValidationMessageFor(model => model.Sifre, "", new { @class = "text-danger" })
                                 </div>
                             </div>

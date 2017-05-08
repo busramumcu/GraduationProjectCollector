@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="B_Id" />
           </Key>
-          <Property Name="B_Id" Type="int" Nullable="false" />
+          <Property Name="B_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Kullanici_Adi" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Sifre" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />

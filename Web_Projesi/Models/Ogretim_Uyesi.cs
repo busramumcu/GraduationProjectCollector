@@ -14,9 +14,17 @@ namespace Web_Projesi.Models
     
     public partial class Ogretim_Uyesi
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Ogretim_Uyesi()
+        {
+            this.Tezs = new HashSet<Tez>();
+        }
+    
         public int Kullanici_Id { get; set; }
         public string Unvan { get; set; }
     
         public virtual Kullanici Kullanici { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tez> Tezs { get; set; }
     }
 }

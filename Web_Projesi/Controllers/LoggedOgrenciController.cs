@@ -14,5 +14,12 @@ namespace Web_Projesi.Controllers
         {
             return View();
         }
+
+        [Authorize(Roles = "Ogrenci")]
+        // GET: LoggedOgrenci
+        public ActionResult BilgiDuzenle()
+        {
+            return View();
+        }
     }
 }

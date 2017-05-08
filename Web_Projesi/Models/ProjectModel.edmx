@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TezProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TezProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bekleyen_Kullanici">
           <Key>
             <PropertyRef Name="B_Id" />
@@ -15,8 +15,8 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Ad" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Soyad" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Onay" Type="bit" Nullable="false" />
           <Property Name="Kullanici_Tipi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Onay" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Gorev">
           <Key>
@@ -72,28 +72,13 @@
         </EntityType>
         <EntityType Name="Tez">
           <Key>
-            <PropertyRef Name="Tez_Id" />
+            <PropertyRef Name="Ogrenci_Id" />
+            <PropertyRef Name="Danisman_Id" />
           </Key>
-          <Property Name="Tez_Id" Type="int" Nullable="false" />
+          <Property Name="Ogrenci_Id" Type="int" Nullable="false" />
           <Property Name="Danisman_Id" Type="int" Nullable="false" />
           <Property Name="Abstract" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="Donem" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Tez_Gorev">
-          <Key>
-            <PropertyRef Name="Gorev_Id" />
-            <PropertyRef Name="Tez_Id" />
-          </Key>
-          <Property Name="Gorev_Id" Type="int" Nullable="false" />
-          <Property Name="Tez_Id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Tez_Ogrenci">
-          <Key>
-            <PropertyRef Name="Tez_Id" />
-            <PropertyRef Name="Ogrenci_Id" />
-          </Key>
-          <Property Name="Tez_Id" Type="int" Nullable="false" />
-          <Property Name="Ogrenci_Id" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Koordinator_Kullanici">
           <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="1">
@@ -137,51 +122,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tez_Gorev_Gorev">
-          <End Role="Gorev" Type="Self.Gorev" Multiplicity="1" />
-          <End Role="Tez_Gorev" Type="Self.Tez_Gorev" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gorev">
-              <PropertyRef Name="Gorev_Id" />
-            </Principal>
-            <Dependent Role="Tez_Gorev">
-              <PropertyRef Name="Gorev_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tez_Gorev_Tez">
-          <End Role="Tez" Type="Self.Tez" Multiplicity="1" />
-          <End Role="Tez_Gorev" Type="Self.Tez_Gorev" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tez">
-              <PropertyRef Name="Tez_Id" />
-            </Principal>
-            <Dependent Role="Tez_Gorev">
-              <PropertyRef Name="Tez_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tez_Ogrenci_Ogrenci">
+        <Association Name="FK_Tez_Ogrenci">
           <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="1" />
-          <End Role="Tez_Ogrenci" Type="Self.Tez_Ogrenci" Multiplicity="*" />
+          <End Role="Tez" Type="Self.Tez" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Ogrenci">
               <PropertyRef Name="Kullanici_Id" />
             </Principal>
-            <Dependent Role="Tez_Ogrenci">
+            <Dependent Role="Tez">
               <PropertyRef Name="Ogrenci_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tez_Ogrenci_Tez">
-          <End Role="Tez" Type="Self.Tez" Multiplicity="1" />
-          <End Role="Tez_Ogrenci" Type="Self.Tez_Ogrenci" Multiplicity="*" />
+        <Association Name="FK_Tez_Ogretim_Uyesi">
+          <End Role="Ogretim_Uyesi" Type="Self.Ogretim_Uyesi" Multiplicity="1" />
+          <End Role="Tez" Type="Self.Tez" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tez">
-              <PropertyRef Name="Tez_Id" />
+            <Principal Role="Ogretim_Uyesi">
+              <PropertyRef Name="Kullanici_Id" />
             </Principal>
-            <Dependent Role="Tez_Ogrenci">
-              <PropertyRef Name="Tez_Id" />
+            <Dependent Role="Tez">
+              <PropertyRef Name="Danisman_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -194,8 +155,6 @@
           <EntitySet Name="Ogretim_Uyesi" EntityType="Self.Ogretim_Uyesi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tez" EntityType="Self.Tez" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tez_Gorev" EntityType="Self.Tez_Gorev" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tez_Ogrenci" EntityType="Self.Tez_Ogrenci" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Koordinator_Kullanici" Association="Self.FK_Koordinator_Kullanici">
             <End Role="Kullanici" EntitySet="Kullanici" />
             <End Role="Koordinator" EntitySet="Koordinator" />
@@ -208,69 +167,32 @@
             <End Role="Kullanici" EntitySet="Kullanici" />
             <End Role="Ogretim_Uyesi" EntitySet="Ogretim_Uyesi" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tez_Gorev_Gorev" Association="Self.FK_Tez_Gorev_Gorev">
-            <End Role="Gorev" EntitySet="Gorev" />
-            <End Role="Tez_Gorev" EntitySet="Tez_Gorev" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tez_Gorev_Tez" Association="Self.FK_Tez_Gorev_Tez">
-            <End Role="Tez" EntitySet="Tez" />
-            <End Role="Tez_Gorev" EntitySet="Tez_Gorev" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tez_Ogrenci_Ogrenci" Association="Self.FK_Tez_Ogrenci_Ogrenci">
+          <AssociationSet Name="FK_Tez_Ogrenci" Association="Self.FK_Tez_Ogrenci">
             <End Role="Ogrenci" EntitySet="Ogrenci" />
-            <End Role="Tez_Ogrenci" EntitySet="Tez_Ogrenci" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tez_Ogrenci_Tez" Association="Self.FK_Tez_Ogrenci_Tez">
             <End Role="Tez" EntitySet="Tez" />
-            <End Role="Tez_Ogrenci" EntitySet="Tez_Ogrenci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tez_Ogretim_Uyesi" Association="Self.FK_Tez_Ogretim_Uyesi">
+            <End Role="Ogretim_Uyesi" EntitySet="Ogretim_Uyesi" />
+            <End Role="Tez" EntitySet="Tez" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TezProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="TezProjectEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Bekleyen_Kullanici" EntityType="TezProjectModel.Bekleyen_Kullanici" />
-          <EntitySet Name="Gorevs" EntityType="TezProjectModel.Gorev" />
-          <EntitySet Name="Koordinators" EntityType="TezProjectModel.Koordinator" />
-          <EntitySet Name="Kullanicis" EntityType="TezProjectModel.Kullanici" />
-          <EntitySet Name="Ogrencis" EntityType="TezProjectModel.Ogrenci" />
-          <EntitySet Name="Ogretim_Uyesi" EntityType="TezProjectModel.Ogretim_Uyesi" />
-          <EntitySet Name="sysdiagrams" EntityType="TezProjectModel.sysdiagram" />
-          <EntitySet Name="Tezs" EntityType="TezProjectModel.Tez" />
-          <AssociationSet Name="FK_Koordinator_Kullanici" Association="TezProjectModel.FK_Koordinator_Kullanici">
-            <End Role="Kullanici" EntitySet="Kullanicis" />
-            <End Role="Koordinator" EntitySet="Koordinators" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ogrenci_Kullanici" Association="TezProjectModel.FK_Ogrenci_Kullanici">
-            <End Role="Kullanici" EntitySet="Kullanicis" />
-            <End Role="Ogrenci" EntitySet="Ogrencis" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ogretim_Uyesi_Kullanici" Association="TezProjectModel.FK_Ogretim_Uyesi_Kullanici">
-            <End Role="Kullanici" EntitySet="Kullanicis" />
-            <End Role="Ogretim_Uyesi" EntitySet="Ogretim_Uyesi" />
-          </AssociationSet>
-          <AssociationSet Name="Tez_Gorev" Association="TezProjectModel.Tez_Gorev">
-            <End Role="Gorev" EntitySet="Gorevs" />
-            <End Role="Tez" EntitySet="Tezs" />
-          </AssociationSet>
-          <AssociationSet Name="Tez_Ogrenci" Association="TezProjectModel.Tez_Ogrenci">
-            <End Role="Ogrenci" EntitySet="Ogrencis" />
-            <End Role="Tez" EntitySet="Tezs" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="Bekleyen_Kullanici">
           <Key>
             <PropertyRef Name="B_Id" />
           </Key>
-          <Property Name="B_Id" Type="Int32" Nullable="false" />
-          <Property Name="Kullanici_Adi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Sifre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Ad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Soyad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Onay" Type="Boolean" Nullable="false" />
+          <Property Name="B_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kullanici_Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Kullanici_Tipi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Onay" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Gorev">
           <Key>
@@ -280,7 +202,6 @@
           <Property Name="Aciklama" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="S_Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="E_Date" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Tezs" Relationship="TezProjectModel.Tez_Gorev" FromRole="Gorev" ToRole="Tez" />
         </EntityType>
         <EntityType Name="Koordinator">
           <Key>
@@ -288,22 +209,22 @@
           </Key>
           <Property Name="Kullanici_Adi" Type="Int32" Nullable="false" />
           <Property Name="Unvan" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Kullanici" Relationship="TezProjectModel.FK_Koordinator_Kullanici" FromRole="Koordinator" ToRole="Kullanici" />
+          <NavigationProperty Name="Kullanici" Relationship="Self.FK_Koordinator_Kullanici" FromRole="Koordinator" ToRole="Kullanici" />
         </EntityType>
         <EntityType Name="Kullanici">
           <Key>
             <PropertyRef Name="Kullanici_Id" />
           </Key>
-          <Property Name="Kullanici_Id" Type="Int32" Nullable="false" />
-          <Property Name="Kullanici_Adi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Ad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Soyad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Sifre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Kullanici_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kullanici_Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="user_type" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Koordinator" Relationship="TezProjectModel.FK_Koordinator_Kullanici" FromRole="Kullanici" ToRole="Koordinator" />
-          <NavigationProperty Name="Ogrenci" Relationship="TezProjectModel.FK_Ogrenci_Kullanici" FromRole="Kullanici" ToRole="Ogrenci" />
-          <NavigationProperty Name="Ogretim_Uyesi" Relationship="TezProjectModel.FK_Ogretim_Uyesi_Kullanici" FromRole="Kullanici" ToRole="Ogretim_Uyesi" />
+          <Property Name="user_type" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Koordinator" Relationship="Self.FK_Koordinator_Kullanici" FromRole="Kullanici" ToRole="Koordinator" />
+          <NavigationProperty Name="Ogrenci" Relationship="Self.FK_Ogrenci_Kullanici" FromRole="Kullanici" ToRole="Ogrenci" />
+          <NavigationProperty Name="Ogretim_Uyesi" Relationship="Self.FK_Ogretim_Uyesi_Kullanici" FromRole="Kullanici" ToRole="Ogretim_Uyesi" />
         </EntityType>
         <EntityType Name="Ogrenci">
           <Key>
@@ -311,8 +232,8 @@
           </Key>
           <Property Name="Kullanici_Id" Type="Int32" Nullable="false" />
           <Property Name="Ogrenci_No" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Kullanici" Relationship="TezProjectModel.FK_Ogrenci_Kullanici" FromRole="Ogrenci" ToRole="Kullanici" />
-          <NavigationProperty Name="Tezs" Relationship="TezProjectModel.Tez_Ogrenci" FromRole="Ogrenci" ToRole="Tez" />
+          <NavigationProperty Name="Kullanici" Relationship="Self.FK_Ogrenci_Kullanici" FromRole="Ogrenci" ToRole="Kullanici" />
+          <NavigationProperty Name="Tezs" Relationship="Self.FK_Tez_Ogrenci" FromRole="Ogrenci" ToRole="Tez" />
         </EntityType>
         <EntityType Name="Ogretim_Uyesi">
           <Key>
@@ -320,13 +241,14 @@
           </Key>
           <Property Name="Kullanici_Id" Type="Int32" Nullable="false" />
           <Property Name="Unvan" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Kullanici" Relationship="TezProjectModel.FK_Ogretim_Uyesi_Kullanici" FromRole="Ogretim_Uyesi" ToRole="Kullanici" />
+          <NavigationProperty Name="Kullanici" Relationship="Self.FK_Ogretim_Uyesi_Kullanici" FromRole="Ogretim_Uyesi" ToRole="Kullanici" />
+          <NavigationProperty Name="Tezs" Relationship="Self.FK_Tez_Ogretim_Uyesi" FromRole="Ogretim_Uyesi" ToRole="Tez" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -334,20 +256,21 @@
         </EntityType>
         <EntityType Name="Tez">
           <Key>
-            <PropertyRef Name="Tez_Id" />
+            <PropertyRef Name="Ogrenci_Id" />
+            <PropertyRef Name="Danisman_Id" />
           </Key>
-          <Property Name="Tez_Id" Type="Int32" Nullable="false" />
+          <Property Name="Ogrenci_Id" Type="Int32" Nullable="false" />
           <Property Name="Danisman_Id" Type="Int32" Nullable="false" />
-          <Property Name="Abstract" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Abstract" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Donem" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Gorevs" Relationship="TezProjectModel.Tez_Gorev" FromRole="Tez" ToRole="Gorev" />
-          <NavigationProperty Name="Ogrencis" Relationship="TezProjectModel.Tez_Ogrenci" FromRole="Tez" ToRole="Ogrenci" />
+          <NavigationProperty Name="Ogrenci" Relationship="Self.FK_Tez_Ogrenci" FromRole="Tez" ToRole="Ogrenci" />
+          <NavigationProperty Name="Ogretim_Uyesi" Relationship="Self.FK_Tez_Ogretim_Uyesi" FromRole="Tez" ToRole="Ogretim_Uyesi" />
         </EntityType>
         <Association Name="FK_Koordinator_Kullanici">
-          <End Type="TezProjectModel.Kullanici" Role="Kullanici" Multiplicity="1">
+          <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="TezProjectModel.Koordinator" Role="Koordinator" Multiplicity="0..1" />
+          <End Role="Koordinator" Type="Self.Koordinator" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Kullanici">
               <PropertyRef Name="Kullanici_Id" />
@@ -358,10 +281,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Ogrenci_Kullanici">
-          <End Type="TezProjectModel.Kullanici" Role="Kullanici" Multiplicity="1">
+          <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="TezProjectModel.Ogrenci" Role="Ogrenci" Multiplicity="0..1" />
+          <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Kullanici">
               <PropertyRef Name="Kullanici_Id" />
@@ -372,10 +295,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Ogretim_Uyesi_Kullanici">
-          <End Type="TezProjectModel.Kullanici" Role="Kullanici" Multiplicity="1">
+          <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="TezProjectModel.Ogretim_Uyesi" Role="Ogretim_Uyesi" Multiplicity="0..1" />
+          <End Role="Ogretim_Uyesi" Type="Self.Ogretim_Uyesi" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Kullanici">
               <PropertyRef Name="Kullanici_Id" />
@@ -385,14 +308,60 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Tez_Gorev">
-          <End Type="TezProjectModel.Gorev" Role="Gorev" Multiplicity="*" />
-          <End Type="TezProjectModel.Tez" Role="Tez" Multiplicity="*" />
+        <Association Name="FK_Tez_Ogrenci">
+          <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="1" />
+          <End Role="Tez" Type="Self.Tez" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ogrenci">
+              <PropertyRef Name="Kullanici_Id" />
+            </Principal>
+            <Dependent Role="Tez">
+              <PropertyRef Name="Ogrenci_Id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <Association Name="Tez_Ogrenci">
-          <End Type="TezProjectModel.Ogrenci" Role="Ogrenci" Multiplicity="*" />
-          <End Type="TezProjectModel.Tez" Role="Tez" Multiplicity="*" />
+        <Association Name="FK_Tez_Ogretim_Uyesi">
+          <End Role="Ogretim_Uyesi" Type="Self.Ogretim_Uyesi" Multiplicity="1" />
+          <End Role="Tez" Type="Self.Tez" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ogretim_Uyesi">
+              <PropertyRef Name="Kullanici_Id" />
+            </Principal>
+            <Dependent Role="Tez">
+              <PropertyRef Name="Danisman_Id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="TezProjectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bekleyen_Kullanici" EntityType="Self.Bekleyen_Kullanici" />
+          <EntitySet Name="Gorevs" EntityType="Self.Gorev" />
+          <EntitySet Name="Koordinators" EntityType="Self.Koordinator" />
+          <EntitySet Name="Kullanicis" EntityType="Self.Kullanici" />
+          <EntitySet Name="Ogrencis" EntityType="Self.Ogrenci" />
+          <EntitySet Name="Ogretim_Uyesi" EntityType="Self.Ogretim_Uyesi" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Tezs" EntityType="Self.Tez" />
+          <AssociationSet Name="FK_Koordinator_Kullanici" Association="Self.FK_Koordinator_Kullanici">
+            <End Role="Kullanici" EntitySet="Kullanicis" />
+            <End Role="Koordinator" EntitySet="Koordinators" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ogrenci_Kullanici" Association="Self.FK_Ogrenci_Kullanici">
+            <End Role="Kullanici" EntitySet="Kullanicis" />
+            <End Role="Ogrenci" EntitySet="Ogrencis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ogretim_Uyesi_Kullanici" Association="Self.FK_Ogretim_Uyesi_Kullanici">
+            <End Role="Kullanici" EntitySet="Kullanicis" />
+            <End Role="Ogretim_Uyesi" EntitySet="Ogretim_Uyesi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tez_Ogrenci" Association="Self.FK_Tez_Ogrenci">
+            <End Role="Ogrenci" EntitySet="Ogrencis" />
+            <End Role="Tez" EntitySet="Tezs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tez_Ogretim_Uyesi" Association="Self.FK_Tez_Ogretim_Uyesi">
+            <End Role="Ogretim_Uyesi" EntitySet="Ogretim_Uyesi" />
+            <End Role="Tez" EntitySet="Tezs" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -402,101 +371,85 @@
           <EntitySetMapping Name="Bekleyen_Kullanici">
             <EntityTypeMapping TypeName="TezProjectModel.Bekleyen_Kullanici">
               <MappingFragment StoreEntitySet="Bekleyen_Kullanici">
+                <ScalarProperty Name="B_Id" ColumnName="B_Id" />
+                <ScalarProperty Name="Kullanici_Adi" ColumnName="Kullanici_Adi" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
                 <ScalarProperty Name="Kullanici_Tipi" ColumnName="Kullanici_Tipi" />
                 <ScalarProperty Name="Onay" ColumnName="Onay" />
-                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
-                <ScalarProperty Name="Ad" ColumnName="Ad" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
-                <ScalarProperty Name="Kullanici_Adi" ColumnName="Kullanici_Adi" />
-                <ScalarProperty Name="B_Id" ColumnName="B_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Gorevs">
             <EntityTypeMapping TypeName="TezProjectModel.Gorev">
               <MappingFragment StoreEntitySet="Gorev">
-                <ScalarProperty Name="E_Date" ColumnName="E_Date" />
-                <ScalarProperty Name="S_Date" ColumnName="S_Date" />
-                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
                 <ScalarProperty Name="Gorev_Id" ColumnName="Gorev_Id" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="S_Date" ColumnName="S_Date" />
+                <ScalarProperty Name="E_Date" ColumnName="E_Date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Koordinators">
             <EntityTypeMapping TypeName="TezProjectModel.Koordinator">
               <MappingFragment StoreEntitySet="Koordinator">
-                <ScalarProperty Name="Unvan" ColumnName="Unvan" />
                 <ScalarProperty Name="Kullanici_Adi" ColumnName="Kullanici_Adi" />
+                <ScalarProperty Name="Unvan" ColumnName="Unvan" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Kullanicis">
             <EntityTypeMapping TypeName="TezProjectModel.Kullanici">
               <MappingFragment StoreEntitySet="Kullanici">
-                <ScalarProperty Name="user_type" ColumnName="user_type" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
-                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
-                <ScalarProperty Name="Ad" ColumnName="Ad" />
-                <ScalarProperty Name="Kullanici_Adi" ColumnName="Kullanici_Adi" />
                 <ScalarProperty Name="Kullanici_Id" ColumnName="Kullanici_Id" />
+                <ScalarProperty Name="Kullanici_Adi" ColumnName="Kullanici_Adi" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Ogrencis">
             <EntityTypeMapping TypeName="TezProjectModel.Ogrenci">
               <MappingFragment StoreEntitySet="Ogrenci">
-                <ScalarProperty Name="Ogrenci_No" ColumnName="Ogrenci_No" />
                 <ScalarProperty Name="Kullanici_Id" ColumnName="Kullanici_Id" />
+                <ScalarProperty Name="Ogrenci_No" ColumnName="Ogrenci_No" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Ogretim_Uyesi">
             <EntityTypeMapping TypeName="TezProjectModel.Ogretim_Uyesi">
               <MappingFragment StoreEntitySet="Ogretim_Uyesi">
-                <ScalarProperty Name="Unvan" ColumnName="Unvan" />
                 <ScalarProperty Name="Kullanici_Id" ColumnName="Kullanici_Id" />
+                <ScalarProperty Name="Unvan" ColumnName="Unvan" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="TezProjectModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tezs">
             <EntityTypeMapping TypeName="TezProjectModel.Tez">
               <MappingFragment StoreEntitySet="Tez">
-                <ScalarProperty Name="Donem" ColumnName="Donem" />
-                <ScalarProperty Name="Abstract" ColumnName="Abstract" />
+                <ScalarProperty Name="Ogrenci_Id" ColumnName="Ogrenci_Id" />
                 <ScalarProperty Name="Danisman_Id" ColumnName="Danisman_Id" />
-                <ScalarProperty Name="Tez_Id" ColumnName="Tez_Id" />
+                <ScalarProperty Name="Abstract" ColumnName="Abstract" />
+                <ScalarProperty Name="Donem" ColumnName="Donem" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Tez_Gorev" TypeName="TezProjectModel.Tez_Gorev" StoreEntitySet="Tez_Gorev">
-            <EndProperty Name="Tez">
-              <ScalarProperty Name="Tez_Id" ColumnName="Tez_Id" />
-            </EndProperty>
-            <EndProperty Name="Gorev">
-              <ScalarProperty Name="Gorev_Id" ColumnName="Gorev_Id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="Tez_Ogrenci" TypeName="TezProjectModel.Tez_Ogrenci" StoreEntitySet="Tez_Ogrenci">
-            <EndProperty Name="Tez">
-              <ScalarProperty Name="Tez_Id" ColumnName="Tez_Id" />
-            </EndProperty>
-            <EndProperty Name="Ogrenci">
-              <ScalarProperty Name="Kullanici_Id" ColumnName="Ogrenci_Id" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

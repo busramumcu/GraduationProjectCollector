@@ -14,21 +14,12 @@ namespace Web_Projesi.Models
     
     public partial class Tez
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tez()
-        {
-            this.Gorevs = new HashSet<Gorev>();
-            this.Ogrencis = new HashSet<Ogrenci>();
-        }
-    
-        public int Tez_Id { get; set; }
+        public int Ogrenci_Id { get; set; }
         public int Danisman_Id { get; set; }
         public string Abstract { get; set; }
         public int Donem { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Gorev> Gorevs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ogrenci> Ogrencis { get; set; }
+        public virtual Ogrenci Ogrenci { get; set; }
+        public virtual Ogretim_Uyesi Ogretim_Uyesi { get; set; }
     }
 }

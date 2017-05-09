@@ -15,7 +15,7 @@
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css' />
     <!--web-fonts-->
     <link rel="Shortcut Icon" href="~/Content/Images/icon.ico" type="image/x-icon" />
-    <script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/jquery-1.12.4.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
 </head>
 
@@ -31,12 +31,17 @@
             @if (ViewBag.Message != null)
             {
                 <script>
-                $(document).ready(function(){
+                  $(document).ready(function(){
                         alert('@ViewBag.Message');
                     });
                 </script>
                 if (string.Compare(ViewBag.Message, "Kayıt onaya gonderildi") == 0)
                 {
+                    <script>
+                        $(document).ready(function(){
+                        alert('@ViewBag.Message');
+                    });
+                    </script>
                     @Html.ActionLink("ANASAYFAYA DÖNMEK İÇİN TIKLAYINIZ.","Index", "Home")
                 }
             }

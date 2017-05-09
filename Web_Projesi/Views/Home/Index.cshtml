@@ -3,34 +3,48 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AnaLayout.cshtml";
 }
-    
+
 <link href="~/Content/ImageStyle.css" rel="stylesheet" />
 <div class="container">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
-            <li data-target="#http://bilmuh.ege.edu.tr/" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
             <li data-target="#myCarousel" data-slide-to="2"></li>
         </ol>
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
+
             <div class="item active">
                 <div class="item peopleCarouselImg">
-                    <img src="~/Content/Images/bilmuh_foto1.jpg" alt="BilmuhFoto" style="width:100%;">
+                    <a href="http://bilmuh.ege.edu.tr/" target="_blank">
+                        <img src="~/Content/Images/bilmuh_foto1.jpg" alt="BilmuhFoto" style="width:100%;">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>Bilgisayar Mühendisliği</h3>
+                        </div>
+                    </a>
                 </div>
             </div>
 
             <div class="item">
                 <div class="item peopleCarouselImg">
-                    <img src="chicago.jpg" alt="Chicago" style="width:100%;">
+                    <a href="http://gbyf.org.tr/" target="_blank">
+                        <img src="~/Content/Images/gbyf.png" alt="GBYF" style="width:100%;">
+                    </a>
                 </div>
             </div>
 
             <div class="item">
                 <div class="item peopleCarouselImg">
-                    <img src="ny.jpg" alt="New york" style="width:100%;">
+                    <a href="http://ebys.ege.edu.tr/ogrenci/ebp/organizasyon.aspx?kultur=tr-TR&Mod=2&ustbirim=191&birim=20&altbirim=-1&program=4596&organizasyonId=60399&mufredatTurId=932001" target="_blank">
+                        <img src="~/Content/Images/yuksek_lisans.jpg" alt="Yuksek Lisans Programı" style="width:100%;">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>Ege Üniversitesi</h3>
+                            <p>Yüksek Lisans Programları</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>

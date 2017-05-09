@@ -22,38 +22,57 @@ namespace Web_Projesi.Controllers
         {
             return View();
         }
-        public JsonResult GetDuyurus()
-        {
-            List<Duyuru> all = null;
 
+        public JsonResult List()
+        {
             using (TezProjectEntities db = new TezProjectEntities())
             {
-                //    var contacts = (from a in dc.Contacts
-                //                    join b in dc.Countries on a.CountryID equals b.CountryID
-                //                    join c in dc.States on a.StateID equals c.StateID
-                //                    select new
-                //                    {
-                //                        a,
-                //                        b.CountryName,
-                //                        c.StateName
-                //                    });
-                //    var gorevs = dc.Gorevs;
-                //    if (gorevs != null)
-                //    {
-                //        all = new List<Gorev>();
-                //        foreach (var i in contacts)
-                //        {
-                //            Contact con = i.a;
-                //            con.CountryName = i.CountryName;
-                //            con.StateName = i.StateName;
-                //            all.Add(con);
-                //        }
-                //    }
-                //}
-                all = db.Duyurus.ToList();
-                return new JsonResult { Data = all, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                return Json(db.Duyurus.ToList(), JsonRequestBehavior.AllowGet);
             }
         }
+        public JsonResult Add(Duyuru duyuru)
+        {
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                Duyuru yeniduyuru = new Duyuru();
+                yeniduyuru.Duyuru_Basligi = duyuru.Duyuru_Basligi;
+                yeniduyuru.Duyuru_Icerigi = duyuru.Duyuru_Icerigi;
+                db.Duyurus.Add(yeniduyuru);
+                db.SaveChanges();
+                return Json(db.Duyurus.ToList(), JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetbyID(int ID)
+        {
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                var duyuru = db.Duyurus.Where(x => x.Duyuru_Id.Equals(ID));
+                return Json(duyuru, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult Update(Duyuru gelenduyuru)
+        {
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                Duyuru duyuru = db.Duyurus.Where(x => x.Duyuru_Id.Equals(gelenduyuru.Duyuru_Id)).FirstOrDefault();
+                duyuru.Duyuru_Basligi = gelenduyuru.Duyuru_Basligi;
+                duyuru.Duyuru_Icerigi = gelenduyuru.Duyuru_Icerigi;
+                db.SaveChanges();
+                return Json(duyuru, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult Delete(int ID)
+        {
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                Duyuru duyuru = db.Duyurus.Where(x => x.Duyuru_Id.Equals(ID)).FirstOrDefault();
+                db.Duyurus.Remove(duyuru);
+                db.SaveChanges();
+                return Json(db.Duyurus.ToList(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
 
         [Authorize(Roles = "Koordinator")]
         public ActionResult Onaylama()
@@ -65,7 +84,6 @@ namespace Web_Projesi.Controllers
                 return View(model);
             }
         }
-
         [HttpPost]
         public ActionResult Onaylama(KullaniciOnayModel model)
         {

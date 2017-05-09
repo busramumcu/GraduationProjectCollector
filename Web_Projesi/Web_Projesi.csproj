@@ -125,6 +125,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ImageStyle.css" />
     <Content Include="Content\Images\bilmuh_foto1.jpg" />
+    <Content Include="Content\Images\gbyf.png" />
     <Content Include="Content\Images\icon.ico" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Login_Page\css\style.css" />
@@ -175,6 +176,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\Images\yuksek_lisans.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -212,6 +214,7 @@
       <DependentUpon>ProjectModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\Duyuru_Crud.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />

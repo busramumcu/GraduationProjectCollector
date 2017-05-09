@@ -11,26 +11,15 @@ namespace Web_Projesi.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-
+    
     public partial class Bekleyen_Kullanici
     {
-        public int B_Id { get; set; }    
-        [StringLength(50, ErrorMessage = "Kullanici Adý 50 karakterden uzun olamaz")]
+        public int B_Id { get; set; }
         public string Kullanici_Adi { get; set; }
-
-        [StringLength(50, ErrorMessage = "Kullanici Adý 50 karakterden uzun olamaz")]
         public string Sifre { get; set; }
-        [StringLength(50, ErrorMessage = "Kullanici Adý 50 karakterden uzun olamaz")]
-        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
         public string Email { get; set; }
-
-        [StringLength(50, ErrorMessage = "Kullanici Adý 50 karakterden uzun olamaz")]
         public string Ad { get; set; }
-        [StringLength(50, ErrorMessage = "Kullanici Adý 50 karakterden uzun olamaz")]
         public string Soyad { get; set; }
-        [StringLength(50, ErrorMessage = "Kullanici Adý 50 karakterden uzun olamaz")]
         public string Kullanici_Tipi { get; set; }
         public bool Onay { get; set; }
     }

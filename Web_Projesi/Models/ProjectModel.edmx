@@ -22,7 +22,7 @@
           <Key>
             <PropertyRef Name="Duyuru_Id" />
           </Key>
-          <Property Name="Duyuru_Id" Type="int" Nullable="false" />
+          <Property Name="Duyuru_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Duyuru_Basligi" Type="nvarchar" MaxLength="200" />
           <Property Name="Duyuru_Icerigi" Type="nvarchar" MaxLength="2000" />
         </EntityType>

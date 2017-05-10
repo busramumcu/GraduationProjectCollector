@@ -1,8 +1,9 @@
-﻿//Load Data in Table when documents is ready
+﻿//Dokuman hazır olduğunda loadData işlemini gerçekleştir.
 $(document).ready(function () {
     loadData();
 });
-//Load Data function
+
+//Duyuru verilerinin görüntülenmesi işlemi
 function loadData() {
     $.ajax({
         url: "/LoggedKoordinator/List",
@@ -16,7 +17,7 @@ function loadData() {
                 html += '<td>' + item.Duyuru_Id + '</td>';
                 html += '<td>' + item.Duyuru_Basligi + '</td>';
                 html += '<td>' + item.Duyuru_Icerigi + '</td>';
-                html += '<td><a href="#" onclick="return getbyID(' + item.Duyuru_Id + ')">Edit</a> | <a href="#" onclick="Delele(' + item.Duyuru_Id + ')">Delete</a></td>';
+                html += '<td><a href="#" data-target="#myModal" data-toggle="modal" onclick="return getbyID(' + item.Duyuru_Id + ')">Edit</a> | <a href="#" onclick="Delele(' + item.Duyuru_Id + ')">Delete</a></td>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
@@ -53,69 +54,66 @@ function Add() {
     });
 }
 
+function Update() {
+    var res = validate();
+    if (res == false) {
+        return false;
+    }
+    var duyuruObj = {
+        Duyuru_Id: $('#Duyuru_Id').val(),
+        Duyuru_Basligi: $('#Duyuru_Basligi').val(),
+        Duyuru_Icerigi: $('#Duyuru_Icerigi').val()
+    };
+    $.ajax({
+        url: "/LoggedKoordinator/Update",
+        data: JSON.stringify(duyuruObj),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            loadData();
+            $('#myModal').modal('hide');
+            $('#Duyuru_Id').val("");
+            $('#Duyuru_Basligi').val("");
+            $('#Duyuru_Icerigi').val("");
 
-////Function for getting the Data Based upon Employee ID
-//function getbyID(EmpID) {
-//    $('#Name').css('border-color', 'lightgrey');
-//    $('#Age').css('border-color', 'lightgrey');
-//    $('#State').css('border-color', 'lightgrey');
-//    $('#Country').css('border-color', 'lightgrey');
-//    $.ajax({
-//        url: "/Home/getbyID/" + EmpID,
-//        typr: "GET",
-//        contentType: "application/json;charset=UTF-8",
-//        dataType: "json",
-//        success: function (result) {
-//            $('#EmployeeID').val(result.EmployeeID);
-//            $('#Name').val(result.Name);
-//            $('#Age').val(result.Age);
-//            $('#State').val(result.State);
-//            $('#Country').val(result.Country);
-//            $('#myModal').modal('show');
-//            $('#btnUpdate').show();
-//            $('#btnAdd').hide();
-//        },
-//        error: function (errormessage) {
-//            alert(errormessage.responseText);
-//        }
-//    });
-//    return false;
-//}
-////function for updating employee's record
-//function Update() {
-//    var res = validate();
-//    if (res == false) {
-//        return false;
-//    }
-//    var empObj = {
-//        EmployeeID: $('#EmployeeID').val(),
-//        Name: $('#Name').val(),
-//        Age: $('#Age').val(),
-//        State: $('#State').val(),
-//        Country: $('#Country').val(),
-//    };
-//    $.ajax({
-//        url: "/Home/Update",
-//        data: JSON.stringify(empObj),
-//        type: "POST",
-//        contentType: "application/json;charset=utf-8",
-//        dataType: "json",
-//        success: function (result) {
-//            loadData();
-//            $('#myModal').modal('hide');
-//            $('#EmployeeID').val("");
-//            $('#Name').val("");
-//            $('#Age').val("");
-//            $('#State').val("");
-//            $('#Country').val("");
-//        },
-//        error: function (errormessage) {
-//            alert(errormessage.responseText);
-//        }
-//    });
-//}
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
 
-//function for deleting employee's record
+//Function for getting the Data Based upon Duyuru ID
+function getbyID(duyuru_Id) {
+    $('#Duyuru_Basligi').css('border-color', 'lightgrey');
+    $('#Duyuru_Icerigi').css('border-color', 'lightgrey');
+    $.ajax({
+        url: "/LoggedKoordinator/GetbyID/" + duyuru_Id,
+        typr: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            console.log("Duyuru ID: " + result.Duyuru_Id);
+            console.log("Duyuru_Basligi: " + result.Duyuru_Basligi);
+            console.log("Duyuru_Icerigi " + result.Duyuru_Icerigi);
+            $('#Duyuru_Id').val(result.Duyuru_Id);
+            $('#Duyuru_Basligi').val(result.Duyuru_Basligi);
+            $('#Duyuru_Icerigi').val(result.Duyuru_Icerigi);
+            $('#btnUpdate').show();
+            $('#btnAdd').hide();
+        },
+        error: function (errormessage) {
+            console.log(333333);
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+
+
+//function for deleting duyuru's record
 function Delele(ID) {
     var ans = confirm("Silmek İstediğinizden Emin Misiniz?");
     if (ans) {

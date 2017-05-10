@@ -42,11 +42,13 @@ namespace Web_Projesi.Controllers
                 return Json(db.Duyurus.ToList(), JsonRequestBehavior.AllowGet);
             }
         }
+
         public JsonResult GetbyID(int ID)
-        {
+        {         
             using (TezProjectEntities db = new TezProjectEntities())
             {
-                var duyuru = db.Duyurus.Where(x => x.Duyuru_Id.Equals(ID));
+                Duyuru duyuru = db.Duyurus.Where(x => x.Duyuru_Id.Equals(ID)).FirstOrDefault();
+        
                 return Json(duyuru, JsonRequestBehavior.AllowGet);
             }
         }
@@ -58,7 +60,7 @@ namespace Web_Projesi.Controllers
                 duyuru.Duyuru_Basligi = gelenduyuru.Duyuru_Basligi;
                 duyuru.Duyuru_Icerigi = gelenduyuru.Duyuru_Icerigi;
                 db.SaveChanges();
-                return Json(duyuru, JsonRequestBehavior.AllowGet);
+                return Json(db.Duyurus.ToList(), JsonRequestBehavior.AllowGet);
             }
         }
         public JsonResult Delete(int ID)
@@ -71,7 +73,6 @@ namespace Web_Projesi.Controllers
                 return Json(db.Duyurus.ToList(), JsonRequestBehavior.AllowGet);
             }
         }
-
 
 
         [Authorize(Roles = "Koordinator")]

@@ -25,41 +25,42 @@
         <tbody class="tbody"></tbody>
     </table>
 
+    <div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        @*<button type="button" class="close" data-dissmiss="modal"><span aria-hidden="true">×</span></button>*@
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Yeni Duyuru</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="Duyuru_Id">ID</label>
+                                <input type="text" class="form-control" id="Duyuru_Id" placeholder="Duyuru_Id" disabled="disabled" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Duyuru_Basligi">Duyuru Basligi</label>
+                                <input type="text" class="form-control" id="Duyuru_Basligi" placeholder="Duyuru_Basligi" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Duyuru_Icerigi">Duyuru İçeriği</label>
+                                <input type="text" class="form-control" id="Duyuru_Icerigi" placeholder="Duyuru_Icerigi" />
+                            </div>
+                        </form>
+                    </div>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    @*<button type="button" class="close" data-dissmiss="modal"><span aria-hidden="true">×</span></button>*@
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h4 class="modal-title" id="myModalLabel">Yeni Duyuru</h4>
                 </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="Duyuru_Id">ID</label>
-                            <input type="text" class="form-control" id="Duyuru_Id" placeholder="Duyuru_Id" disabled="disabled" />
-                        </div>
-                        <div class="form-group">
-                            <label for="Duyuru_Basligi">Duyuru Basligi</label>
-                            <input type="text" class="form-control" id="Duyuru_Basligi" placeholder="Duyuru_Basligi" />
-                        </div>
-                        <div class="form-group">
-                            <label for="Duyuru_Icerigi">Age</label>
-                            <input type="text" class="form-control" id="Duyuru_Icerigi" placeholder="Duyuru_Icerigi" />
-                        </div>
-                    </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Add</button>
+                    <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Update</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Add</button>
-                <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Update</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-
 </div>
 <script src="~/Scripts/jquery-1.12.4.js"></script>
 <script src="~/Scripts/Duyuru_Crud.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>

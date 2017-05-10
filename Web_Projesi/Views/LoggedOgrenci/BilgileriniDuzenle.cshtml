@@ -1,0 +1,43 @@
+﻿@using Web_Projesi.Models
+@model OgrenciModel 
+
+@{
+    ViewBag.Title = "BilgileriniDuzenle";
+    Layout = "~/Views/Shared/_LoggedOgrenciLayout.cshtml";
+}
+
+@if (ViewBag.Message != null)
+{
+    <label style="color:red">@ViewBag.Message</label>
+}
+
+@using (Html.BeginForm("BilgileriGuncelle", "LoggedOgrenci", null, FormMethod.Post))
+{
+<form>
+    <div class="form-group">
+        <label for="Ogrenci_No">Ogrenci No</label>
+        <input type="text" class="form-control" name="Ogrenci_No" placeholder="Ogrenci No" value="@Model.ogrenci.Ogrenci_No"  />
+    </div>
+    <div class="form-group">
+        <label for="Ad">Ad</label>
+        <input type="text" class="form-control" name="Ad" placeholder="Ad" value="@Model.kogrenci.Ad" />
+    </div>
+    <div class="form-group">
+        <label for="Soyad">Soyad</label>
+        <input type="text" class="form-control" name="Soyad" placeholder="Soyad" value="@Model.kogrenci.Soyad" />
+    </div>
+    <div class="form-group">
+        <label for="Sifre">Sifre</label>
+        <input type="text" class="form-control" name="Sifre" placeholder="Sifre" value="@Model.kogrenci.Sifre" />
+    </div>
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="text" class="form-control" name="Email" placeholder="Email" value="@Model.kogrenci.Email" />
+    </div>
+    <input class="btn btn-primary" style="margin-left:10px" type="submit" value="Güncelle" />
+
+</form>
+
+
+
+}

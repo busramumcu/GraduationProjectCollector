@@ -1,0 +1,44 @@
+﻿@using Web_Projesi.Models
+@model List<Duyuru>
+
+@{
+    ViewBag.Title = "Duyurular";
+    Layout = "~/Views/Shared/_LoggedOgrenciLayout.cshtml";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @using (Html.BeginForm("Duyuru Listesi", "LoggedOgrenci", FormMethod.Post, new { @class = "form-horizantal", role = "form" }))
+    {
+        
+          <h1>Duyuru Listesi</h1>        
+            <div>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Duyuru Başlığı</th>                          
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0;i< Model.Count;i++)
+                            {
+                                <tr>
+                                    <td><a href="/LoggedOgrenci/DuyuruDetay?duyuruID=@Model.ElementAt(i).Duyuru_Id">@Model.ElementAt(i).Duyuru_Basligi</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+    }
+</body>
+</html>

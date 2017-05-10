@@ -254,6 +254,7 @@
     <Compile Include="Models\Ogrenci.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OgrenciModel.cs" />
     <Compile Include="Models\Ogretim_Uyesi.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -300,6 +301,9 @@
     <Content Include="Views\LoggedDanisman\Index.cshtml" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
     <Content Include="Views\LoggedKoordinator\Duyuru.cshtml" />
+    <Content Include="Views\LoggedOgrenci\Duyurular.cshtml" />
+    <Content Include="Views\LoggedOgrenci\DuyuruDetay.cshtml" />
+    <Content Include="Views\LoggedOgrenci\BilgileriniDuzenle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

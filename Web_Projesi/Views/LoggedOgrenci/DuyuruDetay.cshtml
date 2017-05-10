@@ -1,0 +1,25 @@
+﻿@model Web_Projesi.Models.Duyuru
+
+@{
+    ViewBag.Title = "DuyuruDetay";
+    Layout = "~/Views/Shared/_LoggedOgrenciLayout.cshtml";
+}
+
+<div>
+    <div class="jumbotron">
+        <h2>
+            @Html.DisplayFor(model => model.Duyuru_Basligi)
+        </h2>
+    </div>
+  
+    <hr />
+    <dl class="dl-horizontal">
+        <h3>
+            @Html.DisplayFor(model => model.Duyuru_Icerigi)
+        </h3>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Duyurulara Geri Dön", "Duyurular")
+</p>

@@ -238,6 +238,7 @@
     <Compile Include="Models\Bekleyen_Kullanici.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DanismanModel.cs" />
     <Compile Include="Models\Duyuru.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -247,6 +248,7 @@
     <Compile Include="Models\Koordinator.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\KoordinatorModel.cs" />
     <Compile Include="Models\Kullanici.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -304,6 +306,8 @@
     <Content Include="Views\LoggedOgrenci\Duyurular.cshtml" />
     <Content Include="Views\LoggedOgrenci\DuyuruDetay.cshtml" />
     <Content Include="Views\LoggedOgrenci\BilgileriniDuzenle.cshtml" />
+    <Content Include="Views\LoggedKoordinator\BilgileriniDuzenle.cshtml" />
+    <Content Include="Views\LoggedDanisman\BilgileriniDuzenle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

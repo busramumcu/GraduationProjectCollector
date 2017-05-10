@@ -14,7 +14,7 @@ namespace Web_Projesi.Models
     
     public partial class Koordinator
     {
-        public int Kullanici_Adi { get; set; }
+        public int Kullanici_Id { get; set; }
         public string Unvan { get; set; }
     
         public virtual Kullanici Kullanici { get; set; }

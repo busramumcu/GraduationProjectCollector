@@ -23,6 +23,40 @@ namespace Web_Projesi.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Koordinator")]
+        public ActionResult BilgileriniDuzenle()
+        {
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                ViewBag.Message = TempData["Message"];
+                KoordinatorModel kmodel = new KoordinatorModel();
+                string username = User.Identity.Name;
+                kmodel.kkoordinator = db.Kullanicis.Where(x => x.Kullanici_Adi.Equals(username)).FirstOrDefault();
+                kmodel.koordinator = db.Koordinators.Where(x => x.Kullanici_Id.Equals(kmodel.kkoordinator.Kullanici_Id)).FirstOrDefault();
+                return View(kmodel);
+            }
+        }
+
+
+        [HttpPost]
+        public ActionResult BilgileriGuncelle(string Unvan, string Ad, string Soyad, string Sifre, string Email)
+        {
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                string username = User.Identity.Name;
+                Kullanici kullanici = db.Kullanicis.Where(x => x.Kullanici_Adi.Equals(username)).FirstOrDefault();
+                Koordinator koordinator = db.Koordinators.Where(x => x.Kullanici_Id.Equals(kullanici.Kullanici_Id)).FirstOrDefault();
+                koordinator.Unvan = Unvan;
+                kullanici.Ad = Ad;
+                kullanici.Soyad = Soyad;
+                kullanici.Sifre = Sifre;
+                kullanici.Email = Email;
+                db.SaveChanges();
+                TempData["Message"] = "Güncelleme İşlemi Başarılı";
+                return RedirectToAction("BilgileriniDuzenle");
+            }
+        }
+
         public JsonResult List()
         {
             using (TezProjectEntities db = new TezProjectEntities())
@@ -73,7 +107,6 @@ namespace Web_Projesi.Controllers
                 return Json(db.Duyurus.ToList(), JsonRequestBehavior.AllowGet);
             }
         }
-
 
         [Authorize(Roles = "Koordinator")]
         public ActionResult Onaylama()

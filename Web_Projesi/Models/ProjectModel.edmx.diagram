@@ -4,21 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ba019a19eebf4b4b8c217864ca8ca14a" Name="Diagram1">
+      <Diagram DiagramId="6a104d82afff4761af403dedb324c094" Name="Diagram1">
         <EntityTypeShape EntityType="TezProjectModel.Bekleyen_Kullanici" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TezProjectModel.Gorev" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TezProjectModel.Duyuru" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TezProjectModel.Gorev" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TezProjectModel.Koordinator" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TezProjectModel.Kullanici" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TezProjectModel.Ogrenci" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TezProjectModel.Ogretim_Uyesi" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TezProjectModel.sysdiagram" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TezProjectModel.sysdiagram" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TezProjectModel.Tez" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="TezProjectModel.FK_Koordinator_Kullanici" ManuallyRouted="false" />
         <AssociationConnector Association="TezProjectModel.FK_Ogrenci_Kullanici" ManuallyRouted="false" />
         <AssociationConnector Association="TezProjectModel.FK_Ogretim_Uyesi_Kullanici" ManuallyRouted="false" />
         <AssociationConnector Association="TezProjectModel.FK_Tez_Ogrenci" ManuallyRouted="false" />
         <AssociationConnector Association="TezProjectModel.FK_Tez_Ogretim_Uyesi" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="TezProjectModel.Duyuru" Width="1.5" PointX="5.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

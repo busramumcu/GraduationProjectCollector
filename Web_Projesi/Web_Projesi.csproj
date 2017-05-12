@@ -308,6 +308,7 @@
     <Content Include="Views\LoggedOgrenci\BilgileriniDuzenle.cshtml" />
     <Content Include="Views\LoggedKoordinator\BilgileriniDuzenle.cshtml" />
     <Content Include="Views\LoggedDanisman\BilgileriniDuzenle.cshtml" />
+    <Content Include="Views\LoggedOgrenci\GorevDeneme.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -118,6 +118,7 @@ namespace Web_Projesi.Controllers
                 return View(model);
             }
         }
+
         [HttpPost]
         public ActionResult Onaylama(KullaniciOnayModel model)
         {

@@ -72,5 +72,11 @@ namespace Web_Projesi.Controllers
             }
 
         }
+
+        [Authorize(Roles = "Ogrenci")]
+        public ActionResult GorevDeneme()
+        {
+            return View();
+        }
     }
 }

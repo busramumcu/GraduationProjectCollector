@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -76,7 +77,43 @@ namespace Web_Projesi.Controllers
         [Authorize(Roles = "Ogrenci")]
         public ActionResult GorevDeneme()
         {
+            ViewBag.Message = TempData["Message"];
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult GorevDeneme(System.Web.HttpPostedFileBase yuklenecekDosya)
+        {
+            if (yuklenecekDosya != null)
+            {
+                using (TezProjectEntities db = new TezProjectEntities())
+                {
+                    try
+                    {
+                        //TODO: DOSYA UZANTISI BELİRLENECEK
+                        //string dosyaYolu = Path.GetFileName(yuklenecekDosya.FileName);
+                        byte[] uploadedFile = new byte[yuklenecekDosya.InputStream.Length];
+                        yuklenecekDosya.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+
+                        int Kullanici_Id = db.Kullanicis.Where(x => x.Kullanici_Adi.Equals(User.Identity.Name)).FirstOrDefault().Kullanici_Id;
+                        Dosya dosya = new Dosya();
+                        dosya.Kullanici_Id = Kullanici_Id;
+                        dosya.Gorev_Id = 1;
+                        dosya.Dosya_Yolu = uploadedFile.ToString();
+                        db.Dosyas.Add(dosya);
+                        db.SaveChanges();
+                        TempData["Message"] = "Dosya Yükleme İşlemi Başarılı";
+                    }
+                    catch (Exception)
+                    {
+                        TempData["Message"] = "Dosya Yüklenirken Hata Oluştu";
+                        
+                    }
+                   
+                }
+                   
+            }
+            return RedirectToAction("GorevDeneme");
         }
     }
 }

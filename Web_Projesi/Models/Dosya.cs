@@ -12,14 +12,14 @@ namespace Web_Projesi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tez
+    public partial class Dosya
     {
-        public int Ogrenci_Id { get; set; }
-        public int Danisman_Id { get; set; }
-        public string Abstract { get; set; }
-        public Nullable<int> Donem { get; set; }
+        public int Gorev_Id { get; set; }
+        public int Kullanici_Id { get; set; }
+        public string Dosya_Uzantisi { get; set; }
+        public string Dosya_Yolu { get; set; }
     
+        public virtual Gorev Gorev { get; set; }
         public virtual Ogrenci Ogrenci { get; set; }
-        public virtual Ogretim_Uyesi Ogretim_Uyesi { get; set; }
     }
 }

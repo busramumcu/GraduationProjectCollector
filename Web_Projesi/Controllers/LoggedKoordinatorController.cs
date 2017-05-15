@@ -37,6 +37,42 @@ namespace Web_Projesi.Controllers
             }
         }
 
+        [Authorize(Roles = "Koordinator")]
+        public ActionResult DanismanAtama()
+        {
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                ViewBag.Message = TempData["Message"];
+                DanismanAtamaModel model = new DanismanAtamaModel();
+                var ogrenciIdswithDanisman = db.Tezs.Select(s => s.Ogrenci_Id).ToArray();
+                var query = from kullanicilar in db.Kullanicis.Where(x => x.user_type == "Ogrenci")
+                            where !ogrenciIdswithDanisman.Contains(kullanicilar.Kullanici_Id)
+                            select kullanicilar;
+                model.ogrenciler = query.ToList();
+                model.danismanlar = db.Kullanicis.Where(x => x.user_type == "Danisman").ToList();
+                return View(model);
+            }
+        }
+        [HttpPost]
+        public ActionResult DanismanAtamaIslemi(DanismanAtamaModel model)
+        {
+
+
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                Tez tez = new Tez();
+                tez.Ogrenci_Id = model.Kullanici_Id;
+                tez.Danisman_Id = model.secilenDanismanId;
+                db.Tezs.Add(tez);
+                db.SaveChanges();
+                TempData["Message"] = "Atama işlemi başarılı";
+                return RedirectToAction("DanismanAtama");
+            }
+
+
+        }
+
+
 
         [HttpPost]
         public ActionResult BilgileriGuncelle(string Unvan, string Ad, string Soyad, string Sifre, string Email)

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TezProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TezProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bekleyen_Kullanici">
           <Key>
             <PropertyRef Name="B_Id" />
@@ -17,6 +17,16 @@
           <Property Name="Soyad" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Kullanici_Tipi" Type="nvarchar" MaxLength="50" />
           <Property Name="Onay" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dosya">
+          <Key>
+            <PropertyRef Name="Gorev_Id" />
+            <PropertyRef Name="Kullanici_Id" />
+          </Key>
+          <Property Name="Gorev_Id" Type="int" Nullable="false" />
+          <Property Name="Kullanici_Id" Type="int" Nullable="false" />
+          <Property Name="Dosya_Uzantisi" Type="nvarchar" MaxLength="20" />
+          <Property Name="Dosya_Yolu" Type="nvarchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="Duyuru">
           <Key>
@@ -85,9 +95,33 @@
           </Key>
           <Property Name="Ogrenci_Id" Type="int" Nullable="false" />
           <Property Name="Danisman_Id" Type="int" Nullable="false" />
-          <Property Name="Abstract" Type="nvarchar" MaxLength="1000" Nullable="false" />
-          <Property Name="Donem" Type="int" Nullable="false" />
+          <Property Name="Abstract" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Donem" Type="int" />
         </EntityType>
+        <Association Name="FK_Dosya_Gorev">
+          <End Role="Gorev" Type="Self.Gorev" Multiplicity="1" />
+          <End Role="Dosya" Type="Self.Dosya" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gorev">
+              <PropertyRef Name="Gorev_Id" />
+            </Principal>
+            <Dependent Role="Dosya">
+              <PropertyRef Name="Gorev_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dosya_Ogrenci">
+          <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="1" />
+          <End Role="Dosya" Type="Self.Dosya" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ogrenci">
+              <PropertyRef Name="Kullanici_Id" />
+            </Principal>
+            <Dependent Role="Dosya">
+              <PropertyRef Name="Kullanici_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Koordinator_Kullanici">
           <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -156,6 +190,7 @@
         </Association>
         <EntityContainer Name="TezProjectModelStoreContainer">
           <EntitySet Name="Bekleyen_Kullanici" EntityType="Self.Bekleyen_Kullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dosya" EntityType="Self.Dosya" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Duyuru" EntityType="Self.Duyuru" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gorev" EntityType="Self.Gorev" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Koordinator" EntityType="Self.Koordinator" Schema="dbo" store:Type="Tables" />
@@ -164,6 +199,14 @@
           <EntitySet Name="Ogretim_Uyesi" EntityType="Self.Ogretim_Uyesi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tez" EntityType="Self.Tez" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Dosya_Gorev" Association="Self.FK_Dosya_Gorev">
+            <End Role="Gorev" EntitySet="Gorev" />
+            <End Role="Dosya" EntitySet="Dosya" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dosya_Ogrenci" Association="Self.FK_Dosya_Ogrenci">
+            <End Role="Ogrenci" EntitySet="Ogrenci" />
+            <End Role="Dosya" EntitySet="Dosya" />
+          </AssociationSet>
           <AssociationSet Name="FK_Koordinator_Kullanici" Association="Self.FK_Koordinator_Kullanici">
             <End Role="Kullanici" EntitySet="Kullanici" />
             <End Role="Koordinator" EntitySet="Koordinator" />
@@ -185,8 +228,7 @@
             <End Role="Tez" EntitySet="Tez" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TezProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -219,6 +261,7 @@
           <Property Name="Aciklama" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="S_Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="E_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Dosyas" Relationship="TezProjectModel.FK_Dosya_Gorev" FromRole="Gorev" ToRole="Dosya" />
         </EntityType>
         <EntityType Name="Koordinator">
           <Key>
@@ -251,6 +294,7 @@
           <Property Name="Ogrenci_No" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Kullanici" Relationship="Self.FK_Ogrenci_Kullanici" FromRole="Ogrenci" ToRole="Kullanici" />
           <NavigationProperty Name="Tezs" Relationship="Self.FK_Tez_Ogrenci" FromRole="Ogrenci" ToRole="Tez" />
+          <NavigationProperty Name="Dosyas" Relationship="TezProjectModel.FK_Dosya_Ogrenci" FromRole="Ogrenci" ToRole="Dosya" />
         </EntityType>
         <EntityType Name="Ogretim_Uyesi">
           <Key>
@@ -278,8 +322,8 @@
           </Key>
           <Property Name="Ogrenci_Id" Type="Int32" Nullable="false" />
           <Property Name="Danisman_Id" Type="Int32" Nullable="false" />
-          <Property Name="Abstract" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Donem" Type="Int32" Nullable="false" />
+          <Property Name="Abstract" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Donem" Type="Int32" />
           <NavigationProperty Name="Ogrenci" Relationship="Self.FK_Tez_Ogrenci" FromRole="Tez" ToRole="Ogrenci" />
           <NavigationProperty Name="Ogretim_Uyesi" Relationship="Self.FK_Tez_Ogretim_Uyesi" FromRole="Tez" ToRole="Ogretim_Uyesi" />
         </EntityType>
@@ -379,7 +423,52 @@
             <End Role="Ogretim_Uyesi" EntitySet="Ogretim_Uyesi" />
             <End Role="Tez" EntitySet="Tezs" />
           </AssociationSet>
+          <EntitySet Name="Dosyas" EntityType="TezProjectModel.Dosya" />
+          <AssociationSet Name="FK_Dosya_Gorev" Association="TezProjectModel.FK_Dosya_Gorev">
+            <End Role="Gorev" EntitySet="Gorevs" />
+            <End Role="Dosya" EntitySet="Dosyas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dosya_Ogrenci" Association="TezProjectModel.FK_Dosya_Ogrenci">
+            <End Role="Ogrenci" EntitySet="Ogrencis" />
+            <End Role="Dosya" EntitySet="Dosyas" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Dosya">
+          <Key>
+            <PropertyRef Name="Gorev_Id" />
+            <PropertyRef Name="Kullanici_Id" />
+          </Key>
+          <Property Name="Gorev_Id" Type="Int32" Nullable="false" />
+          <Property Name="Kullanici_Id" Type="Int32" Nullable="false" />
+          <Property Name="Dosya_Uzantisi" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Dosya_Yolu" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Gorev" Relationship="TezProjectModel.FK_Dosya_Gorev" FromRole="Dosya" ToRole="Gorev" />
+          <NavigationProperty Name="Ogrenci" Relationship="TezProjectModel.FK_Dosya_Ogrenci" FromRole="Dosya" ToRole="Ogrenci" />
+        </EntityType>
+        <Association Name="FK_Dosya_Gorev">
+          <End Type="TezProjectModel.Gorev" Role="Gorev" Multiplicity="1" />
+          <End Type="TezProjectModel.Dosya" Role="Dosya" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gorev">
+              <PropertyRef Name="Gorev_Id" />
+            </Principal>
+            <Dependent Role="Dosya">
+              <PropertyRef Name="Gorev_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dosya_Ogrenci">
+          <End Type="TezProjectModel.Ogrenci" Role="Ogrenci" Multiplicity="1" />
+          <End Type="TezProjectModel.Dosya" Role="Dosya" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ogrenci">
+              <PropertyRef Name="Kullanici_Id" />
+            </Principal>
+            <Dependent Role="Dosya">
+              <PropertyRef Name="Kullanici_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -474,6 +563,16 @@
                 <ScalarProperty Name="Danisman_Id" ColumnName="Danisman_Id" />
                 <ScalarProperty Name="Abstract" ColumnName="Abstract" />
                 <ScalarProperty Name="Donem" ColumnName="Donem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dosyas">
+            <EntityTypeMapping TypeName="TezProjectModel.Dosya">
+              <MappingFragment StoreEntitySet="Dosya">
+                <ScalarProperty Name="Dosya_Yolu" ColumnName="Dosya_Yolu" />
+                <ScalarProperty Name="Dosya_Uzantisi" ColumnName="Dosya_Uzantisi" />
+                <ScalarProperty Name="Kullanici_Id" ColumnName="Kullanici_Id" />
+                <ScalarProperty Name="Gorev_Id" ColumnName="Gorev_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

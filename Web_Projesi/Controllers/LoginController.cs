@@ -10,9 +10,7 @@ namespace Web_Projesi.Controllers
 {
     public class LoginController : Controller
     {// GET: Home
-       
-      //  TODO: Ayrı Controller'lara taşınacak. _Layout düzenlenecek menu eklenecek
-        
+               
 
         public ActionResult Login()
         {

@@ -18,6 +18,7 @@ namespace Web_Projesi.Models
         public Ogrenci()
         {
             this.Tezs = new HashSet<Tez>();
+            this.Dosyas = new HashSet<Dosya>();
         }
     
         public int Kullanici_Id { get; set; }
@@ -26,5 +27,7 @@ namespace Web_Projesi.Models
         public virtual Kullanici Kullanici { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tez> Tezs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Dosya> Dosyas { get; set; }
     }
 }

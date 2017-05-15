@@ -1,0 +1,79 @@
+﻿@using Web_Projesi.Models
+@model DanismanAtamaModel
+
+
+@{
+    ViewBag.Title = "DanismanAtama";
+    Layout = "~/Views/Shared/_LoggedKoordinatorLayout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>HaberDetay</title>
+</head>
+<body>
+
+    <div class="jumbotron">
+        <h1>Danışman Atama</h1>
+    </div>
+
+
+
+    @if (ViewBag.Message != null)
+    {
+        <label style="color:red">@ViewBag.Message</label>
+    }
+
+    <h3> Kullanıcılar </h3>
+    @using (Html.BeginForm("DanismanAtamaIslemi", "LoggedKoordinator", null, FormMethod.Post))
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        
+                    </th>
+                    <th>
+                        Ad
+                    </th>
+                    <th>
+                        Soyad
+                    </th>
+                    <th>
+                        Danışman
+                    </th>
+                    <th>
+                        Atama İşlemi
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.ogrenciler.Count; i++)
+                {
+                    <tr>
+                        <td>
+                          <input name="Kullanici_Id" id="Kullanici_Id" type="hidden"  value="@Model.ogrenciler.ElementAt(i).Kullanici_Id"/>
+                           @* <label for="Kullanici_Id">@Model.ogrenciler.ElementAt(i).Kullanici_Id </label>*@
+                        </td>
+                
+                        <td>@Model.ogrenciler.ElementAt(i).Ad</td>
+                        <td>@Model.ogrenciler.ElementAt(i).Soyad</td>
+                        <td>
+                            <select class="form-control" name="secilenDanismanId">
+                                @for (int j = 0; j < Model.danismanlar.Count; j++)
+                                {
+                                    <option value="@Model.danismanlar.ElementAt(j).Kullanici_Id"> @Model.danismanlar.ElementAt(j).Ad  @Model.danismanlar.ElementAt(j).Soyad  </option>
+                                }
+                            </select>
+                        </td>
+                        <td><input type="submit" class="btn btn-primary" value="Ata" /></td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+   }
+
+</body>
+</html>

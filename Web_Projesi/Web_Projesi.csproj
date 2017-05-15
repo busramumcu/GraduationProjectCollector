@@ -238,7 +238,11 @@
     <Compile Include="Models\Bekleyen_Kullanici.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DanismanAtamaModel.cs" />
     <Compile Include="Models\DanismanModel.cs" />
+    <Compile Include="Models\Dosya.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Duyuru.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -309,6 +313,7 @@
     <Content Include="Views\LoggedKoordinator\BilgileriniDuzenle.cshtml" />
     <Content Include="Views\LoggedDanisman\BilgileriniDuzenle.cshtml" />
     <Content Include="Views\LoggedOgrenci\GorevDeneme.cshtml" />
+    <Content Include="Views\LoggedKoordinator\DanismanAtama.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -318,6 +323,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Dosyalar\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

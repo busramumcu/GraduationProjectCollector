@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LoggedOgrenciLayout.cshtml";
+}
+@using (Html.BeginForm("DosyaYukleme", "LoggedOgrenci",FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{   
+        <label for="file">Upload Image:</label>
+        <input type="file" name="file" id="file" /><br><br>
+        <input type="submit" value="Upload Image" />
+        <br><br>
+        @ViewBag.Message
+    
+}

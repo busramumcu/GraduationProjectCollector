@@ -40,9 +40,8 @@ namespace Web_Projesi.Controllers
             }
         }
 
-
         [HttpPost]
-        public ActionResult BilgileriGuncelle(string Ogrenci_No,string Ad,string Soyad,string Sifre,string Email)
+        public ActionResult BilgileriGuncelle(string Ogrenci_No, string Ad, string Soyad, string Sifre, string Email)
         {
             using (TezProjectEntities db = new TezProjectEntities())
             {
@@ -59,8 +58,37 @@ namespace Web_Projesi.Controllers
                 return RedirectToAction("BilgileriniDuzenle");
             }
         }
-        
 
+
+        [Authorize(Roles = "Ogrenci")]
+        public ActionResult TezDuzenle()
+        {
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                ViewBag.Message = TempData["Message"];
+                Tez tez = new Tez();
+                string username = User.Identity.Name;
+                Kullanici kullanici = db.Kullanicis.Where(x => x.Kullanici_Adi.Equals(username)).FirstOrDefault();
+                tez = db.Tezs.Where(x => x.Ogrenci_Id.Equals(kullanici.Kullanici_Id)).FirstOrDefault();
+                return View(tez);
+            }
+        }
+        [HttpPost]
+        public ActionResult TezGuncelle(string Ogrenci_Id, string Danisman_Id, string Abstract, string Donem)
+        {
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                string username = User.Identity.Name;
+                Tez tez = new Tez();
+                Kullanici kullanici = db.Kullanicis.Where(x => x.Kullanici_Adi.Equals(username)).FirstOrDefault();
+                tez = db.Tezs.Where(x => x.Ogrenci_Id.Equals(kullanici.Kullanici_Id)).FirstOrDefault();
+                tez.Abstract = Abstract;
+                tez.Donem = Donem;
+                db.SaveChanges();
+                TempData["Message"] = "Güncelleme İşlemi Başarılı";
+                return RedirectToAction("TezDuzenle");
+            }
+        }
 
         [Authorize(Roles = "Ogrenci")]
 
@@ -68,52 +96,41 @@ namespace Web_Projesi.Controllers
         {
             using (TezProjectEntities db = new TezProjectEntities())
             {
-                Duyuru model = db.Duyurus.Where(x => x.Duyuru_Id.Equals(duyuruID)).FirstOrDefault(); 
+                Duyuru model = db.Duyurus.Where(x => x.Duyuru_Id.Equals(duyuruID)).FirstOrDefault();
                 return View(model);
             }
 
         }
 
+
+
         [Authorize(Roles = "Ogrenci")]
-        public ActionResult GorevDeneme()
+        public ActionResult Create()
         {
-            ViewBag.Message = TempData["Message"];
             return View();
         }
 
         [HttpPost]
-        public ActionResult GorevDeneme(System.Web.HttpPostedFileBase yuklenecekDosya)
+        public ActionResult DosyaYukleme(HttpPostedFileBase file)
         {
-            if (yuklenecekDosya != null)
-            {
-                using (TezProjectEntities db = new TezProjectEntities())
+            if (file != null && file.ContentLength > 0)
+                try
                 {
-                    try
-                    {
-                        //TODO: DOSYA UZANTISI BELİRLENECEK
-                        //string dosyaYolu = Path.GetFileName(yuklenecekDosya.FileName);
-                        byte[] uploadedFile = new byte[yuklenecekDosya.InputStream.Length];
-                        yuklenecekDosya.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
-
-                        int Kullanici_Id = db.Kullanicis.Where(x => x.Kullanici_Adi.Equals(User.Identity.Name)).FirstOrDefault().Kullanici_Id;
-                        Dosya dosya = new Dosya();
-                        dosya.Kullanici_Id = Kullanici_Id;
-                        dosya.Gorev_Id = 1;
-                        dosya.Dosya_Yolu = uploadedFile.ToString();
-                        db.Dosyas.Add(dosya);
-                        db.SaveChanges();
-                        TempData["Message"] = "Dosya Yükleme İşlemi Başarılı";
-                    }
-                    catch (Exception)
-                    {
-                        TempData["Message"] = "Dosya Yüklenirken Hata Oluştu";
-                        
-                    }
-                   
+                    string path = Path.Combine(Server.MapPath("~/App_Data"),
+                                               Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                    ViewBag.Message = "File uploaded successfully";
                 }
-                   
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
             }
-            return RedirectToAction("GorevDeneme");
+            return View();
         }
+   
     }
 }

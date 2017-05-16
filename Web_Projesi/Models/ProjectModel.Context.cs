@@ -26,6 +26,7 @@ namespace Web_Projesi.Models
         }
     
         public virtual DbSet<Bekleyen_Kullanici> Bekleyen_Kullanici { get; set; }
+        public virtual DbSet<Dosya> Dosyas { get; set; }
         public virtual DbSet<Duyuru> Duyurus { get; set; }
         public virtual DbSet<Gorev> Gorevs { get; set; }
         public virtual DbSet<Koordinator> Koordinators { get; set; }
@@ -34,6 +35,5 @@ namespace Web_Projesi.Models
         public virtual DbSet<Ogretim_Uyesi> Ogretim_Uyesi { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tez> Tezs { get; set; }
-        public virtual DbSet<Dosya> Dosyas { get; set; }
     }
 }

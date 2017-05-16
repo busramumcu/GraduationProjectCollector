@@ -17,17 +17,17 @@ namespace Web_Projesi.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Ogrenci()
         {
-            this.Tezs = new HashSet<Tez>();
             this.Dosyas = new HashSet<Dosya>();
+            this.Tezs = new HashSet<Tez>();
         }
     
         public int Kullanici_Id { get; set; }
         public string Ogrenci_No { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Dosya> Dosyas { get; set; }
         public virtual Kullanici Kullanici { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tez> Tezs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Dosya> Dosyas { get; set; }
     }
 }

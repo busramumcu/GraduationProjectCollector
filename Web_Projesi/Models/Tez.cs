@@ -17,7 +17,7 @@ namespace Web_Projesi.Models
         public int Ogrenci_Id { get; set; }
         public int Danisman_Id { get; set; }
         public string Abstract { get; set; }
-        public Nullable<int> Donem { get; set; }
+        public string Donem { get; set; }
     
         public virtual Ogrenci Ogrenci { get; set; }
         public virtual Ogretim_Uyesi Ogretim_Uyesi { get; set; }

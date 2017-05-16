@@ -16,8 +16,8 @@ namespace Web_Projesi.Models
     {
         public int Gorev_Id { get; set; }
         public int Kullanici_Id { get; set; }
+        public string Dosya_Adi { get; set; }
         public string Dosya_Uzantisi { get; set; }
-        public string Dosya_Yolu { get; set; }
     
         public virtual Gorev Gorev { get; set; }
         public virtual Ogrenci Ogrenci { get; set; }

@@ -22,55 +22,36 @@ namespace Web_Projesi.Controllers
         {
             return View();
         }
-
         [Authorize(Roles = "Koordinator")]
-        public ActionResult BilgileriniDuzenle()
+        public ActionResult GorevListele()
         {
             using (TezProjectEntities db = new TezProjectEntities())
             {
                 ViewBag.Message = TempData["Message"];
-                KoordinatorModel kmodel = new KoordinatorModel();
-                string username = User.Identity.Name;
-                kmodel.kkoordinator = db.Kullanicis.Where(x => x.Kullanici_Adi.Equals(username)).FirstOrDefault();
-                kmodel.koordinator = db.Koordinators.Where(x => x.Kullanici_Id.Equals(kmodel.kkoordinator.Kullanici_Id)).FirstOrDefault();
-                return View(kmodel);
-            }
-        }
-
-        [Authorize(Roles = "Koordinator")]
-        public ActionResult DanismanAtama()
-        {
-            using (TezProjectEntities db = new TezProjectEntities())
-            {
-                ViewBag.Message = TempData["Message"];
-                DanismanAtamaModel model = new DanismanAtamaModel();
-                var ogrenciIdswithDanisman = db.Tezs.Select(s => s.Ogrenci_Id).ToArray();
-                var query = from kullanicilar in db.Kullanicis.Where(x => x.user_type == "Ogrenci")
-                            where !ogrenciIdswithDanisman.Contains(kullanicilar.Kullanici_Id)
-                            select kullanicilar;
-                model.ogrenciler = query.ToList();
-                model.danismanlar = db.Kullanicis.Where(x => x.user_type == "Danisman").ToList();
+                var model = db.Gorevs.ToList();
                 return View(model);
             }
         }
-        [HttpPost]
-        public ActionResult DanismanAtamaIslemi(DanismanAtamaModel model)
+
+
+        [Authorize(Roles = "Koordinator")]
+        public ActionResult GorevEkle()
         {
-
-
+            return View();
+        }
+        [HttpPost]
+        public ActionResult GorevEkle(Gorev gorev)
+        {
             using (TezProjectEntities db = new TezProjectEntities())
             {
-                Tez tez = new Tez();
-                tez.Ogrenci_Id = model.Kullanici_Id;
-                tez.Danisman_Id = model.secilenDanismanId;
-                db.Tezs.Add(tez);
+                db.Gorevs.Add(gorev);
                 db.SaveChanges();
-                TempData["Message"] = "Atama işlemi başarılı";
-                return RedirectToAction("DanismanAtama");
+                TempData["Message"] = "Gorev Ekleme İşleme işlemi başarılı";
+                return RedirectToAction("GorevListele");
             }
-
-
         }
+
+
 
 
 
@@ -143,6 +124,61 @@ namespace Web_Projesi.Controllers
                 return Json(db.Duyurus.ToList(), JsonRequestBehavior.AllowGet);
             }
         }
+
+      
+
+
+
+        [Authorize(Roles = "Koordinator")]
+        public ActionResult BilgileriniDuzenle()
+        {
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                ViewBag.Message = TempData["Message"];
+                KoordinatorModel kmodel = new KoordinatorModel();
+                string username = User.Identity.Name;
+                kmodel.kkoordinator = db.Kullanicis.Where(x => x.Kullanici_Adi.Equals(username)).FirstOrDefault();
+                kmodel.koordinator = db.Koordinators.Where(x => x.Kullanici_Id.Equals(kmodel.kkoordinator.Kullanici_Id)).FirstOrDefault();
+                return View(kmodel);
+            }
+        }
+
+        [Authorize(Roles = "Koordinator")]
+        public ActionResult DanismanAtama()
+        {
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                ViewBag.Message = TempData["Message"];
+                DanismanAtamaModel model = new DanismanAtamaModel();
+                var ogrenciIdswithDanisman = db.Tezs.Select(s => s.Ogrenci_Id).ToArray();
+                var query = from kullanicilar in db.Kullanicis.Where(x => x.user_type == "Ogrenci")
+                            where !ogrenciIdswithDanisman.Contains(kullanicilar.Kullanici_Id)
+                            select kullanicilar;
+                model.ogrenciler = query.ToList();
+                model.danismanlar = db.Kullanicis.Where(x => x.user_type == "Danisman").ToList();
+                return View(model);
+            }
+        }
+        [HttpPost]
+        public ActionResult DanismanAtamaIslemi(DanismanAtamaModel model)
+        {
+
+
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                Tez tez = new Tez();
+                tez.Ogrenci_Id = model.Kullanici_Id;
+                tez.Danisman_Id = model.secilenDanismanId;
+                db.Tezs.Add(tez);
+                db.SaveChanges();
+                TempData["Message"] = "Atama işlemi başarılı";
+                return RedirectToAction("DanismanAtama");
+            }
+
+
+        }
+
+
 
         [Authorize(Roles = "Koordinator")]
         public ActionResult Onaylama()

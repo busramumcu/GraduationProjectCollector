@@ -21,6 +21,7 @@ namespace Web_Projesi.Models
         }
     
         public int Gorev_Id { get; set; }
+        public string Gorev_Adi { get; set; }
         public string Aciklama { get; set; }
         public System.DateTime S_Date { get; set; }
         public System.DateTime E_Date { get; set; }

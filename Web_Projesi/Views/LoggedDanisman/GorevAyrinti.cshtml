@@ -1,0 +1,48 @@
+﻿@using Web_Projesi.Models
+@model GorevAyrintiModel
+@{
+    ViewBag.Title = "GorevAyrinti";
+    Layout = "~/Views/Shared/_LoggedDanismanLayout.cshtml";
+}
+@if (ViewBag.Message != null)
+{
+    <label style="color:red">@ViewBag.Message</label>
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h1>Görev Listesi</h1>
+    <div>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Kullanici_Id</th>
+                        <th>Ad</th>
+                        <th>Soyad</th>
+                        <th>Email</th>
+                        <th>Dosya İndir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.dosyaYukleyenKullanicilar.Count; i++)
+                    {
+                        <tr>
+                            <td>@Model.dosyaYukleyenKullanicilar.ElementAt(i).Kullanici_Id</td>
+                            <td>@Model.dosyaYukleyenKullanicilar.ElementAt(i).Ad</td>
+                            <td>@Model.dosyaYukleyenKullanicilar.ElementAt(i).Soyad</td>
+                            <td>@Model.dosyaYukleyenKullanicilar.ElementAt(i).Email</td>
+                            <td><a href="/LoggedDanisman/DosyaIndır?kullanici_Id=@Model.dosyaYukleyenKullanicilar.ElementAt(i).Kullanici_Id&gorev_Id=@Model.Gorev_Id">İndir</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

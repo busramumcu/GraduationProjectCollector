@@ -254,6 +254,8 @@
     <Compile Include="Models\Gorev.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GorevAyrintiModel.cs" />
+    <Compile Include="Models\GorevModel.cs" />
     <Compile Include="Models\Koordinator.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -322,6 +324,11 @@
     <Content Include="Views\LoggedKoordinator\GorevEkle.cshtml" />
     <Content Include="Views\LoggedKoordinator\GorevListele.cshtml" />
     <Content Include="Views\LoggedOgrenci\TezDuzenle.cshtml" />
+    <Content Include="Views\LoggedOgrenci\OgrenciGorevListele.cshtml" />
+    <Content Include="Views\LoggedOgrenci\GorevDosyaYukle.cshtml" />
+    <Content Include="Views\LoggedDanisman\GorevBilgisiListele.cshtml" />
+    <Content Include="Views\LoggedDanisman\GorevAyrinti.cshtml" />
+    <Content Include="Views\LoggedDanisman\DosyaIndır.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -331,7 +338,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Dosyalar\" />
+    <Folder Include="UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

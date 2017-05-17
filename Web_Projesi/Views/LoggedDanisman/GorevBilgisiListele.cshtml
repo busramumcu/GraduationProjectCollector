@@ -1,0 +1,53 @@
+﻿@using Web_Projesi.Models
+@model List<Gorev>
+@{
+    ViewBag.Title = "GorevBilgisiListele";
+    Layout = "~/Views/Shared/_LoggedDanismanLayout.cshtml";
+}
+
+@if (ViewBag.Message != null)
+{
+    <label style="color:red">@ViewBag.Message</label>
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h1>Görev Listesi</h1>
+    <div>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Gorev Adı</th>
+                        <th>Açıklama</th>
+                        <th>Başlangıç Tarihi</th>
+                        <th>Bitiş Tarihi</th>
+                        <th>Dosya Yukleyen Öğrencileri Göster</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td>@Model.ElementAt(i).Gorev_Adi</td>
+                            <td>@Model.ElementAt(i).Aciklama</td>
+                            <td>@Model.ElementAt(i).S_Date</td>
+                            <td>@Model.ElementAt(i).E_Date</td> 
+                            <td><a href="/LoggedDanisman/GorevAyrinti?gorev_Id=@Model.ElementAt(i).Gorev_Id">Göster</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+

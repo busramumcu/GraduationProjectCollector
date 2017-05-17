@@ -1,0 +1,36 @@
+﻿@using Web_Projesi.Models
+@model GorevModel
+
+@{
+    ViewBag.Title = "GorevDosyaYukle";
+    Layout = "~/Views/Shared/_LoggedOgrenciLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("DosyaYukle", "LoggedOgrenci", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{ 
+<div class="panel panel-info">
+    <div class="panel-heading">
+        Görev Dosya Yükle
+    </div>
+    <div class="panel-body">
+        <form role="form">
+            <div class="form-group">
+                <label for="Gorev_Id">Gorev Id</label>
+                <input class="form-control" type="text" name="Gorev_Id" placeholder="Gorev_Id" value="@Model.Gorev_Id" />
+            </div>
+            <div class="form-group">
+                <label for="Kullanici_Id">Kullanıcı Id</label>
+                <input class="form-control" type="text" name="Kullanici_Id" placeholder="Kullanici_Id" value="@Model.Kullanici_Id" />
+            </div>
+           
+            <div class="form-group">
+                <label> Dosya Yükleyiniz</label>
+                <input type="file" name="Dosya" id="Dosya" />
+            </div>
+            <button type="submit" class="btn btn-success">İşlemi tamamla </button>
+        </form>
+    </div>
+</div>
+
+}

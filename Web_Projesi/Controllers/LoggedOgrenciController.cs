@@ -91,6 +91,57 @@ namespace Web_Projesi.Controllers
         }
 
         [Authorize(Roles = "Ogrenci")]
+        public ActionResult OgrenciGorevListele()
+        {
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                ViewBag.Message = TempData["Message"];
+                var model = db.Gorevs.ToList();
+                return View(model);
+            }
+        }
+        [Authorize(Roles = "Ogrenci")]
+        public ActionResult GorevDosyaYukle(int gorev_Id)
+        {
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                GorevModel model = new GorevModel();
+                model.Kullanici_Id = db.Kullanicis.Where(x => x.Kullanici_Adi == User.Identity.Name).FirstOrDefault().Kullanici_Id;
+                model.Gorev_Id = gorev_Id;
+                return View(model);
+            }
+        }
+
+
+
+        [HttpPost]
+        public ActionResult DosyaYukle(string Gorev_Id, string Kullanici_Id, HttpPostedFileBase dosya)
+        {
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                string dosyaYolu = Gorev_Id + Kullanici_Id + Path.GetFileName(dosya.FileName);
+                var yuklemeYeri =Path.Combine(Server.MapPath("~/UploadedFiles"), dosyaYolu);
+                dosya.SaveAs(yuklemeYeri);
+                Dosya dosyam = new Dosya();
+                dosyam.Gorev_Id = Convert.ToInt32(Gorev_Id);
+                dosyam.Kullanici_Id = Convert.ToInt32(Kullanici_Id);
+                dosyam.Dosya_Adi = dosyaYolu;
+                dosyam.Yukleme_Yeri = yuklemeYeri;
+                dosyam.Dosya_Uzantisi = Path.GetExtension(dosya.FileName);
+                //TODO: Dosya Uzantısı kontrol edilecek.
+                db.Dosyas.Add(dosyam);
+                db.SaveChanges();
+                TempData["Message"] = Gorev_Id + " Idli gorev için dosya Yukleme işlemi Başarılı";
+                return RedirectToAction("OgrenciGorevListele");
+            }
+
+
+        }
+
+
+
+
+        [Authorize(Roles = "Ogrenci")]
 
         public ActionResult DuyuruDetay(int duyuruID)
         {
@@ -131,6 +182,6 @@ namespace Web_Projesi.Controllers
             }
             return View();
         }
-   
+
     }
 }

@@ -25,8 +25,9 @@
           </Key>
           <Property Name="Gorev_Id" Type="int" Nullable="false" />
           <Property Name="Kullanici_Id" Type="int" Nullable="false" />
-          <Property Name="Dosya_Adi" Type="nvarchar" MaxLength="50" />
-          <Property Name="Dosya_Uzantisi" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Dosya_Adi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Yukleme_Yeri" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Dosya_Uzantisi" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Duyuru">
           <Key>
@@ -254,8 +255,9 @@
           </Key>
           <Property Name="Gorev_Id" Type="Int32" Nullable="false" />
           <Property Name="Kullanici_Id" Type="Int32" Nullable="false" />
-          <Property Name="Dosya_Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Dosya_Uzantisi" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dosya_Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Yukleme_Yeri" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dosya_Uzantisi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Gorev" Relationship="Self.FK_Dosya_Gorev" FromRole="Dosya" ToRole="Gorev" />
           <NavigationProperty Name="Ogrenci" Relationship="Self.FK_Dosya_Ogrenci" FromRole="Dosya" ToRole="Ogrenci" />
         </EntityType>
@@ -498,6 +500,7 @@
                 <ScalarProperty Name="Gorev_Id" ColumnName="Gorev_Id" />
                 <ScalarProperty Name="Kullanici_Id" ColumnName="Kullanici_Id" />
                 <ScalarProperty Name="Dosya_Adi" ColumnName="Dosya_Adi" />
+                <ScalarProperty Name="Yukleme_Yeri" ColumnName="Yukleme_Yeri" />
                 <ScalarProperty Name="Dosya_Uzantisi" ColumnName="Dosya_Uzantisi" />
               </MappingFragment>
             </EntityTypeMapping>

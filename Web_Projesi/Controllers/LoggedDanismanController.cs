@@ -80,8 +80,11 @@ namespace Web_Projesi.Controllers
         {
             using (TezProjectEntities db = new TezProjectEntities())
             {
-              
-                return View();
+
+                Dosya dosya =  db.Dosyas.Where(x => x.Gorev_Id == gorev_Id && x.Kullanici_Id == kullanici_Id).FirstOrDefault();
+                //return File("~/Content/MyFile.pdf", "application/pdf", "MyRenamedFile.pdf");
+                return File(dosya.Yukleme_Yeri,dosya.Dosya_Uzantisi,dosya.Dosya_Adi);
+
             }
         }
     }

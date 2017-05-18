@@ -72,14 +72,25 @@
                                 </ul>
                             </li>
                             <li> <a href="@Url.Action("Iletisim", "Home")" class="elements">İLETİŞİM </a></li>
-                            @*@if (User.Identity.IsAuthenticated)
-                            {                               
-                                if (string.Compare(UserManager.FindByName(User.Identity.Name).Roles, "Ogrenci") == 0)
-                                {
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                
+                                    if (string.Compare(Roles.GetRolesForUser(User.Identity.Name)[0].ToString(), "Ogrenci") == 0)
+                                    {
                                     <li> <a href="@Url.Action("Index", "LoggedOgrenci")" class="elements">ÖGRENCİ SAYFASI </a></li>
 
-                                }
-                            }*@
+                                    }
+                                    else if (string.Compare(Roles.GetRolesForUser(User.Identity.Name)[0].ToString(), "Danisman") == 0)
+                                    {
+                                    <li> <a href="@Url.Action("Index", "LoggedDanisman")" class="elements">DANIŞMAN SAYFASI </a></li>
+
+                                    }
+                                    else if (string.Compare(Roles.GetRolesForUser(User.Identity.Name)[0].ToString(), "Koordinator") == 0)
+                                    {
+                                    <li> <a href="@Url.Action("Index", "LoggedKoordinator")" class="elements">KOORDİNATOR SAYFASI </a></li>
+
+                                    }
+                            }
                         </ul>
                     </div>
                 </div>

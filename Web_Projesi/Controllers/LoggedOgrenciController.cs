@@ -59,6 +59,13 @@ namespace Web_Projesi.Controllers
             }
         }
 
+        [Authorize(Roles = "Ogrenci")]
+        public ActionResult DanismanOnayBekleme()
+        {
+            ViewBag.Message = TempData["Message"];
+            return View();
+        }
+
 
         [Authorize(Roles = "Ogrenci")]
         public ActionResult TezDuzenle()
@@ -70,7 +77,15 @@ namespace Web_Projesi.Controllers
                 string username = User.Identity.Name;
                 Kullanici kullanici = db.Kullanicis.Where(x => x.Kullanici_Adi.Equals(username)).FirstOrDefault();
                 tez = db.Tezs.Where(x => x.Ogrenci_Id.Equals(kullanici.Kullanici_Id)).FirstOrDefault();
-                return View(tez);
+                if (tez == null)
+                {
+                    TempData["Message"] = "Ogrenci Danisman Ataması Beklemektedir";
+                    return RedirectToAction("DanismanOnayBekleme");
+                }
+                else
+                {
+                    return View(tez);
+                }
             }
         }
         [HttpPost]
@@ -119,20 +134,29 @@ namespace Web_Projesi.Controllers
         {
             using (TezProjectEntities db = new TezProjectEntities())
             {
-                string dosyaYolu = Gorev_Id + Kullanici_Id + Path.GetFileName(dosya.FileName);
-                var yuklemeYeri =Path.Combine(Server.MapPath("~/UploadedFiles"), dosyaYolu);
-                dosya.SaveAs(yuklemeYeri);
-                Dosya dosyam = new Dosya();
-                dosyam.Gorev_Id = Convert.ToInt32(Gorev_Id);
-                dosyam.Kullanici_Id = Convert.ToInt32(Kullanici_Id);
-                dosyam.Dosya_Adi = dosyaYolu;
-                dosyam.Yukleme_Yeri = yuklemeYeri;
-                dosyam.Dosya_Uzantisi = Path.GetExtension(dosya.FileName);
-                //TODO: Dosya Uzantısı kontrol edilecek.
-                db.Dosyas.Add(dosyam);
-                db.SaveChanges();
-                TempData["Message"] = Gorev_Id + " Idli gorev için dosya Yukleme işlemi Başarılı";
-                return RedirectToAction("OgrenciGorevListele");
+                try
+                {
+                    string dosyaYolu = Gorev_Id + Kullanici_Id + Path.GetFileName(dosya.FileName);
+                    var yuklemeYeri = Path.Combine(Server.MapPath("~/UploadedFiles"), dosyaYolu);
+                    dosya.SaveAs(yuklemeYeri);
+                    Dosya dosyam = new Dosya();
+                    dosyam.Gorev_Id = Convert.ToInt32(Gorev_Id);
+                    dosyam.Kullanici_Id = Convert.ToInt32(Kullanici_Id);
+                    dosyam.Dosya_Adi = dosyaYolu;
+                    dosyam.Yukleme_Yeri = yuklemeYeri;
+                    dosyam.Dosya_Uzantisi = Path.GetExtension(dosya.FileName);
+                    //TODO: Dosya Uzantısı kontrol edilecek.
+                    db.Dosyas.Add(dosyam);
+                    db.SaveChanges();
+                    TempData["Message"] = Gorev_Id + " Idli gorev için dosya Yukleme işlemi Başarılı";
+                    return RedirectToAction("OgrenciGorevListele");
+                }
+                catch (Exception)
+                {
+                    TempData["Message"] = Gorev_Id + " Idli gorev için dosya Yukleme işlemi Başarısız";
+                    return RedirectToAction("OgrenciGorevListele");
+                }
+             
             }
 
 

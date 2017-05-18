@@ -328,6 +328,7 @@
     <Content Include="Views\LoggedOgrenci\GorevDosyaYukle.cshtml" />
     <Content Include="Views\LoggedDanisman\GorevBilgisiListele.cshtml" />
     <Content Include="Views\LoggedDanisman\GorevAyrinti.cshtml" />
+    <Content Include="Views\LoggedOgrenci\DanismanOnayBekleme.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

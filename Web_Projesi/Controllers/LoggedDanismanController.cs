@@ -66,10 +66,19 @@ namespace Web_Projesi.Controllers
                 GorevAyrintiModel gayrinti = new GorevAyrintiModel();
                 // O görev için Dosya yükleyen Öğrencileri listele. Öğrenciye tıklayinca yuklediği dosyayı indirme sayfası açılsın
                List<Dosya>  dosyalar = db.Dosyas.Where(x => x.Gorev_Id == gorev_Id).ToList();
+                int currentDanisman_Id = db.Kullanicis.Where(x => x.Kullanici_Adi == User.Identity.Name).FirstOrDefault().Kullanici_Id;
+
                 foreach (Dosya dosya in dosyalar)
                 {
-                    gayrinti.dosyaYukleyenKullanicilar.Add(db.Kullanicis.Where(x => x.Kullanici_Id == dosya.Kullanici_Id).FirstOrDefault());
+                    Kullanici kullanici = db.Kullanicis.Where(x => x.Kullanici_Id == dosya.Kullanici_Id).FirstOrDefault();
+                    Tez tez = db.Tezs.Where(x => x.Ogrenci_Id == kullanici.Kullanici_Id && x.Danisman_Id == currentDanisman_Id).FirstOrDefault();
+                        if (tez != null)
+                        {
+                            gayrinti.dosyaYukleyenKullanicilar.Add(kullanici);
+                        }
+
                 }
+
                 gayrinti.Gorev_Id = gorev_Id;
                 return View(gayrinti);
             }

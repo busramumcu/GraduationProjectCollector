@@ -26,6 +26,19 @@ namespace Web_Projesi.Controllers
                 return View(model);
             }
         }
+
+        [Authorize(Roles = "Ogrenci")]
+
+        public ActionResult DuyuruDetay(int duyuruID)
+        {
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                Duyuru model = db.Duyurus.Where(x => x.Duyuru_Id.Equals(duyuruID)).FirstOrDefault();
+                return View(model);
+            }
+
+        }
+
         [Authorize(Roles = "Ogrenci")]
         public ActionResult BilgileriniDuzenle()
         {
@@ -127,8 +140,6 @@ namespace Web_Projesi.Controllers
             }
         }
 
-
-
         [HttpPost]
         public ActionResult DosyaYukle(string Gorev_Id, string Kullanici_Id, HttpPostedFileBase dosya)
         {
@@ -161,23 +172,6 @@ namespace Web_Projesi.Controllers
 
 
         }
-
-
-
-
-        [Authorize(Roles = "Ogrenci")]
-
-        public ActionResult DuyuruDetay(int duyuruID)
-        {
-            using (TezProjectEntities db = new TezProjectEntities())
-            {
-                Duyuru model = db.Duyurus.Where(x => x.Duyuru_Id.Equals(duyuruID)).FirstOrDefault();
-                return View(model);
-            }
-
-        }
-
-
 
         [Authorize(Roles = "Ogrenci")]
         public ActionResult Create()

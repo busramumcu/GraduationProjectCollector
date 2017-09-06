@@ -55,24 +55,7 @@ namespace Web_Projesi.Controllers
 
 
 
-        [HttpPost]
-        public ActionResult BilgileriGuncelle(string Unvan, string Ad, string Soyad, string Sifre, string Email)
-        {
-            using (TezProjectEntities db = new TezProjectEntities())
-            {
-                string username = User.Identity.Name;
-                Kullanici kullanici = db.Kullanicis.Where(x => x.Kullanici_Adi.Equals(username)).FirstOrDefault();
-                Koordinator koordinator = db.Koordinators.Where(x => x.Kullanici_Id.Equals(kullanici.Kullanici_Id)).FirstOrDefault();
-                koordinator.Unvan = Unvan;
-                kullanici.Ad = Ad;
-                kullanici.Soyad = Soyad;
-                kullanici.Sifre = Sifre;
-                kullanici.Email = Email;
-                db.SaveChanges();
-                TempData["Message"] = "Güncelleme İşlemi Başarılı";
-                return RedirectToAction("BilgileriniDuzenle");
-            }
-        }
+       
 
         public JsonResult List()
         {
@@ -143,17 +126,36 @@ namespace Web_Projesi.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult BilgileriGuncelle(string Unvan, string Ad, string Soyad, string Sifre, string Email)
+        {
+            using (TezProjectEntities db = new TezProjectEntities())
+            {
+                string username = User.Identity.Name;
+                Kullanici kullanici = db.Kullanicis.Where(x => x.Kullanici_Adi.Equals(username)).FirstOrDefault();
+                Koordinator koordinator = db.Koordinators.Where(x => x.Kullanici_Id.Equals(kullanici.Kullanici_Id)).FirstOrDefault();
+                koordinator.Unvan = Unvan;
+                kullanici.Ad = Ad;
+                kullanici.Soyad = Soyad;
+                kullanici.Sifre = Sifre;
+                kullanici.Email = Email;
+                db.SaveChanges();
+                TempData["Message"] = "Güncelleme İşlemi Başarılı";
+                return RedirectToAction("BilgileriniDuzenle");
+            }
+        }
+
         [Authorize(Roles = "Koordinator")]
         public ActionResult DanismanAtama()
         {
             using (TezProjectEntities db = new TezProjectEntities())
             {
                 ViewBag.Message = TempData["Message"];
-                DanismanAtamaModel model = new DanismanAtamaModel();
-                var ogrenciIdswithDanisman = db.Tezs.Select(s => s.Ogrenci_Id).ToArray();
+                DanismanAtamaModel model = new DanismanAtamaModel();// Ogrenci ve Danisman listesi, kullanici_id ve danisman_ıd tutar;
+                var ogrenciIdswithDanisman = db.Tezs.Select(s => s.Ogrenci_Id).ToArray(); // Danisman atanmıs ogrenciler
                 var query = from kullanicilar in db.Kullanicis.Where(x => x.user_type == "Ogrenci")
                             where !ogrenciIdswithDanisman.Contains(kullanicilar.Kullanici_Id)
-                            select kullanicilar;
+                            select kullanicilar;// Danismanı olmayan ogrencileri bulur.
                 model.ogrenciler = query.ToList();
                 model.danismanlar = db.Kullanicis.Where(x => x.user_type == "Danisman").ToList();
                 return View(model);
